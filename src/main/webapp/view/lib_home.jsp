@@ -39,14 +39,12 @@
 						</li>
 					</ul>
 					<ul class="nav hidden-xs" id="lg-menu">
-						<li class="active"><a href="#featured"> <i
-								class="glyphicon glyphicon-list-alt"></i> James Gosling
+						<li class="active"><a href="#featured"> James Gosling
 						</a></li>
 					</ul>
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
-						<li><a href="http://www.bootply.com"><h3>MyLib</h3> <i
-								class="glyphicon glyphicon-heart-empty"></i> Impetus</a></li>
+						<li><a href="http://www.bootply.com"><h3>MyLib</h3> Impetus</a></li>
 					</ul>
 
 				</div>
