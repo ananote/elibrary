@@ -17,6 +17,46 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="../bjs/bootstrap.min.js"></script>
 <script src="../bjs/scripts.js"></script>
+<style type="text/css">
+.mylib-wrapper {
+	width: 720px;
+	margin: 0px auto;
+}
+.mylib-header {
+	margin: 40px 0px 20px 0px;
+}
+.mylib-entry {
+	width: 220px;
+	float: left;
+	margin: 10px;
+	height: 218px;
+	background-image: url("../img/shadow.png");
+	background-repeat: no-repeat;
+	background-position: bottom;
+}
+mylib-figure {
+	display: block;
+	width: 202px;
+	height: 190px;
+	background-color: #e7e3d8;
+	margin: 0px;
+	padding: 9px;
+	text-align: center;
+}
+mylib-figure img {
+	height: 150px;
+	border: 1px solid #d6d6d6;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+mylib-figcaption {
+	background-image: url("../img/icon.png");
+	padding-left: 20px;
+	background-repeat: no-repeat;
+	text-align: center;
+}
+</style>
 </head>
 
 <body>
@@ -39,12 +79,14 @@
 						</li>
 					</ul>
 					<ul class="nav hidden-xs" id="lg-menu">
-						<li class="active"><a href="#featured"> James Gosling
+						<li class="active"><a href="#featured"> <i
+								class="glyphicon glyphicon-list-alt"></i> James Gosling
 						</a></li>
 					</ul>
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
-						<li><a href="http://www.bootply.com"><h3>MyLib</h3> Impetus</a></li>
+						<li><a href="http://www.bootply.com"><h3>MyLib</h3> <i
+								class="glyphicon glyphicon-heart-empty"></i> Impetus</a></li>
 					</ul>
 
 				</div>
@@ -102,28 +144,10 @@
 											<h4>Books</h4>
 										</div>
 										<div class="panel-body">
-											<div class="list-inline ">
-
-												<table>
-													<tr>
-														<td><img height="100px;" alt="book-image"
-															src="../img/Gitanjali.jpg" /> <br />Title: Rabindra <br />Author:
-															Rabindra</td>
-														<td><img height="100px;" alt="book-image"
-															src="../img/Java2_TheCompleteReference5Edition.jpg" /> <br />Title:
-															The Complete Reference - Java <br />Author: Herbert
-															Schieldt</td>
-														<td><img height="100px;" alt="book-image"
-															src="../img/Gitanjali.jpg" /> <br />Title: Rabindra <br />Author:
-															Rabindra</td>
-														<td><img height="100px;" alt="book-image"
-															src="../img/Java2_TheCompleteReference5Edition.jpg" /> <br />Title:
-															The Complete Reference - Java <br />Author: Herbert
-															Schieldt</td>
-													</tr>
-												</table>
-
-											</div>
+											
+											<div id="book_catalogue" name="book_catalogue"
+												class="mylib-wrapper "/>
+											
 											<hr>
 										</div>
 									</div>
@@ -153,38 +177,31 @@
 		</div>
 	</div>
 
+	<script>
+		(function() {
+			var booksAPI = "/elibrary/ws/book/listBooks";
+			$
+					.getJSON(booksAPI, {
+						jtStartIndex : "0",
+						jtPageSize : "20",
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								for (var i = 0; i < data.length; i++) {
 
-	<!--post modal-->
-	<div id="postModal" class="modal fade" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">×</button>
-					Update Status
-				</div>
-				<div class="modal-body">
-					<form class="form center-block">
-						<div class="form-group">
-							<textarea class="form-control input-lg" autofocus=""
-								placeholder="What do you want to share?"></textarea>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<div>
-						<button class="btn btn-primary btn-sm" data-dismiss="modal"
-							aria-hidden="true">Post</button>
-						<ul class="pull-left list-inline">
-							<li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li>
-							<li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li>
-							<li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+									htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode + '<mylib-figcaption>' + data[i].name + '</mylib-figcaption> ';
+									htmlCode = htmlCode + '</mylib-figure> </div>';
+								}
+								var divs = document.getElementsByName("book_catalogue");
+								divs[0].innerHTML = "";
+								alert(htmlCode);
+								divs[0].innerHTML = htmlCode;
+
+							});
+		})();
+	</script>
 </body>
 </html>

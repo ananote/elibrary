@@ -1,7 +1,12 @@
 package com.impetus.elibrary.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import java.util.Date;
 //import java.util.List;
 import java.util.Set;
@@ -11,6 +16,8 @@ import java.util.Set;
  * The persistent class for the books database table.
  * 
  */
+@XmlRootElement
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 @Entity
 @Table(name="books")
 @NamedQuery(name="Book.findAll", query="SELECT b FROM Book b")

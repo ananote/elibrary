@@ -1,10 +1,12 @@
 package com.impetus.elibrary.controller;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.impetus.elibrary.controller.json.JSONListResponse;
+import com.impetus.elibrary.controller.json.JSONMapperBean;
 import com.impetus.elibrary.controller.json.JSONResponse;
 import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.service.BookService;
@@ -28,6 +31,9 @@ public class BookController {
 
 	@Autowired
 	BookService bookService;
+	
+	@Autowired
+	JSONMapperBean jsonMapperBean;
 
 	private static final Logger logger = Logger.getLogger(BookController.class
 			.getName());
@@ -44,7 +50,7 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/listBooks", method = RequestMethod.POST)
-	public @ResponseBody JSONListResponse<Book> getAllBooks(
+	public @ResponseBody JSONListResponse<Book> getAllBooksPost(
 			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting) {
 
 		logger.info("Start getAllBooks. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", jtSorting=" + jtSorting);
@@ -67,6 +73,25 @@ public class BookController {
 			response = new JSONListResponse<Book>("ERROR", ex.getMessage());
 		}
 		return response;
+	}
+	
+	@RequestMapping(value = "/listBooks", method = RequestMethod.GET)
+	public String getAllBooksGet(
+			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting) {
+		
+		JSONListResponse<Book> response = this.getAllBooksPost(jtStartIndex, jtPageSize, jtSorting);
+		String json = "";
+		try {
+			json = jsonMapperBean.writeValueAsString(response.getRecords());
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		logger.info("JSON =" + json);
+		return json;
 	}
 
 	@RequestMapping(value = "/getBook", method = RequestMethod.GET)

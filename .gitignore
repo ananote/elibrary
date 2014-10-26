@@ -2,5 +2,5 @@
 .classpath
 .settings
 target
-*.log
+*.log*
 
