@@ -15,5 +15,7 @@ public interface BookService {
 	public Book getById(int id);
 
 	public int delete(int id);
+	
+	public List<String> getAllAuthors();
 
 }

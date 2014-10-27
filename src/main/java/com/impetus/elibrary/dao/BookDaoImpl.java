@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -43,8 +44,21 @@ public class BookDaoImpl  implements BookDao {
 
 	public List<Book> list(Book criteria) {
 		Session session = sessionFactory.openSession();
+		
+		String queryStr="from Book where 1=1 ";
+		if ((criteria.getCategory()!=null) && (criteria.getCategory()!="")){
+			queryStr=queryStr+" and category='"+criteria.getCategory()+"' ";
+		}
+		if ((criteria.getAuthor()!=null) && (criteria.getAuthor()!="")){
+			queryStr=queryStr+" and author='"+criteria.getAuthor()+"' ";
+		}
+		if ((criteria.getName()!=null) && (criteria.getName()!="")){
+			queryStr=queryStr+" and name='"+criteria.getName()+"%' ";
+		}
+		
+		Query query = session.createQuery(queryStr);
 		@SuppressWarnings("unchecked")
-		List<Book> bookList = session.createQuery("from Book").list();
+		List<Book> bookList = query.list();
 		session.close();
 		return bookList;
 	}
@@ -52,6 +66,7 @@ public class BookDaoImpl  implements BookDao {
 	public Book getById(int id) {
 		Session session = sessionFactory.openSession();
 		Book book = (Book) session.load(Book.class, id);
+		session.close();
 		return book;
 	}
 
@@ -64,6 +79,16 @@ public class BookDaoImpl  implements BookDao {
 		Serializable ids = session.getIdentifier(book);
 		session.close();
 		return (Integer) ids;
+	}
+	
+	public List<String> getAllAuthors(){
+		Session session = sessionFactory.openSession();
+		String queryStr="select distinct author from Book where (author is not null and author!='') order by author";
+		Query query = session.createQuery(queryStr);
+		@SuppressWarnings("unchecked")
+		List<String> authorList = query.list();
+		session.close();
+		return authorList;
 	}
 
 }

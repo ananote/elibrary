@@ -79,9 +79,9 @@ mylib-figcaption {
 						</li>
 					</ul>
 					<ul class="nav hidden-xs" id="lg-menu">
-						<li class="active"><a href="#featured"> <i
-								class="glyphicon glyphicon-list-alt"></i> James Gosling
-						</a></li>
+						<div name="author_list" id="author_list">
+						
+						</div>
 					</ul>
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
@@ -202,6 +202,55 @@ mylib-figcaption {
 
 							});
 		})();
+		
+		(function() {
+			var booksAPI = "/elibrary/ws/book/listAllAuthors";
+			$
+					.getJSON(booksAPI, {
+						jtStartIndex : "0",
+						jtPageSize : "20",
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								for (var i = 0; i < data.length; i++) {
+
+									htmlCode = htmlCode + '<li class="active"><a href="javaScript:listByAuthor(\''+data[i].author+'\');"> '+ data[i].author+ '</a></li>';
+								}
+								var divs = document.getElementsByName("author_list");
+								divs[0].innerHTML = "";
+								alert(htmlCode);
+								divs[0].innerHTML = htmlCode;
+
+							});
+		})();
+		
+		function listByAuthor (author) {
+			var booksAPI = "/elibrary/ws/book/listBooks";
+			$
+			.getJSON(booksAPI, {
+				jtStartIndex : "0",
+				jtPageSize : "20",
+				author : author,
+				format : "json"
+			})
+			.done(
+					function(data) {
+						var htmlCode = "";
+						for (var i = 0; i < data.length; i++) {
+
+							htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
+							htmlCode = htmlCode + '<mylib-figcaption>' + data[i].name + '</mylib-figcaption> ';
+							htmlCode = htmlCode + '</mylib-figure> </div>';
+						}
+						var divs = document.getElementsByName("book_catalogue");
+						divs[0].innerHTML = "";
+						alert(htmlCode);
+						divs[0].innerHTML = htmlCode;
+
+					});
+		};
 	</script>
 </body>
 </html>

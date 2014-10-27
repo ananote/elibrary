@@ -42,5 +42,14 @@ public class BookServiceImpl implements BookService {
 	public int delete(int id) {
 		return bookDao.delete(id);
 	}
+	
+	public List<String> getAllAuthors()
+	{
+	List<String> authorList = bookDao.getAllAuthors();
+		/*
+		if(! StringUtils.isEmpty(sortColumn)){
+			bookList = ModelUtils.sortOn(bookList, sortColumn, asc);*/
+	return authorList;
+	}
 
 }

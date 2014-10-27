@@ -1,12 +1,9 @@
 package com.impetus.elibrary.controller;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -75,25 +72,6 @@ public class BookController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/listBooks", method = RequestMethod.GET)
-	public String getAllBooksGet(
-			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting) {
-		
-		JSONListResponse<Book> response = this.getAllBooksPost(jtStartIndex, jtPageSize, jtSorting);
-		String json = "";
-		try {
-			json = jsonMapperBean.writeValueAsString(response.getRecords());
-		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		logger.info("JSON =" + json);
-		return json;
-	}
-
 	@RequestMapping(value = "/getBook", method = RequestMethod.GET)
 	public @ResponseBody Book getBook(@PathVariable("id") int bookId) {
 
