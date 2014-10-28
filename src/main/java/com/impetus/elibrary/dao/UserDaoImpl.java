@@ -1,10 +1,12 @@
 package com.impetus.elibrary.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -64,6 +66,48 @@ public class UserDaoImpl  implements UserDao {
 		Serializable ids = session.getIdentifier(user);
 		session.close();
 		return (Integer) ids;
+	}
+	
+	public User getUserByUsername(String username) {
+		Session session = sessionFactory.openSession();
+		 Transaction tx = null;
+		 User user = null;
+		 try {
+			 tx = session.getTransaction();
+			 tx.begin();
+			 Query query = session.createQuery("from User where username='"+username+"'");
+			 user = (User)query.uniqueResult();
+			 tx.commit();
+		 } catch (Exception e) {
+			 if (tx != null) {
+				 tx.rollback();
+			 }
+			 e.printStackTrace();
+		 } finally {
+			 session.close();
+		 }
+		 return user;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<User> getListOfUsers() {
+		List<User> list = new ArrayList<User>();
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.getTransaction();
+			tx.begin();
+			list = session.createQuery("from User").list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return list;
 	}
 
 }

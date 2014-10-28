@@ -2,6 +2,11 @@ package com.impetus.elibrary.controller.json;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Written as per JQuery/ JTable requirements
+ * @author pc
+ *
+ */
 public class JSONResponse<T> {
 
 	private String Result;
