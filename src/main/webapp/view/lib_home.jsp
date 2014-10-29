@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="req" value="${pageContext.request}" />
+<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -7,16 +10,16 @@
 <meta name="generator" content="Bootply" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="../bcss/bootstrap.min.css" rel="stylesheet">
+<link href="${baseURL}/bcss/bootstrap.min.css" rel="stylesheet">
 <!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-<link href="../bcss/styles.css" rel="stylesheet">
+<link href="${baseURL}/bcss/styles.css" rel="stylesheet">
 
 <!-- script references -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script src="../bjs/bootstrap.min.js"></script>
-<script src="../bjs/scripts.js"></script>
+<script src="${baseURL}/bjs/bootstrap.min.js"></script>
+<script src="${baseURL}/bjs/scripts.js"></script>
 <style type="text/css">
 .mylib-wrapper {
 	width: 720px;
@@ -30,7 +33,7 @@
 	float: left;
 	margin: 10px;
 	height: 218px;
-	background-image: url("../img/shadow.png");
+	background-image: url("${baseURL}/img/shadow.png");
 	background-repeat: no-repeat;
 	background-position: bottom;
 }
@@ -51,7 +54,7 @@ mylib-figure img {
     margin-right: auto;
 }
 mylib-figcaption {
-	background-image: url("../img/icon.png");
+	background-image: url("${baseURL}/img/icon.png");
 	padding-left: 20px;
 	background-repeat: no-repeat;
 	text-align: center;
@@ -85,8 +88,8 @@ mylib-figcaption {
 					</ul>
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
-						<li><a href="http://www.bootply.com"><h3>MyLib</h3> <i
-								class="glyphicon glyphicon-heart-empty"></i> Impetus</a></li>
+						<li><h3>MyLib</h3> <i
+								class="glyphicon glyphicon-heart-empty"></i> Impetus</li>
 					</ul>
 
 				</div>
@@ -178,6 +181,8 @@ mylib-figcaption {
 	</div>
 
 	<script>
+		var base_url = "/elibrary";
+		
 		(function() {
 			var booksAPI = "/elibrary/ws/book/listBooks";
 			$
@@ -191,7 +196,7 @@ mylib-figcaption {
 								var htmlCode = "";
 								for (var i = 0; i < data.length; i++) {
 
-									htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url + '/' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
 									htmlCode = htmlCode + '<mylib-figcaption>' + data[i].name + '</mylib-figcaption> ';
 									htmlCode = htmlCode + '</mylib-figure> </div>';
 								}
@@ -240,7 +245,7 @@ mylib-figcaption {
 						var htmlCode = "";
 						for (var i = 0; i < data.length; i++) {
 
-							htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
+							htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url +'/'+ data[i].imageUrl + '" alt="'+data[i].name+'" />';
 							htmlCode = htmlCode + '<mylib-figcaption>' + data[i].name + '</mylib-figcaption> ';
 							htmlCode = htmlCode + '</mylib-figure> </div>';
 						}
