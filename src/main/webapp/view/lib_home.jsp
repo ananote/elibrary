@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="req" value="${pageContext.request}" />
-<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+<c:set var="baseURL"
+	value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -25,9 +26,11 @@
 	width: 720px;
 	margin: 0px auto;
 }
+
 .mylib-header {
 	margin: 40px 0px 20px 0px;
 }
+
 .mylib-entry {
 	width: 220px;
 	float: left;
@@ -37,6 +40,7 @@
 	background-repeat: no-repeat;
 	background-position: bottom;
 }
+
 mylib-figure {
 	display: block;
 	width: 202px;
@@ -46,13 +50,15 @@ mylib-figure {
 	padding: 9px;
 	text-align: center;
 }
+
 mylib-figure img {
 	height: 150px;
 	border: 1px solid #d6d6d6;
 	display: block;
-    margin-left: auto;
-    margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
+
 mylib-figcaption {
 	background-image: url("${baseURL}/img/icon.png");
 	padding-left: 20px;
@@ -82,14 +88,12 @@ mylib-figcaption {
 						</li>
 					</ul>
 					<ul class="nav hidden-xs" id="lg-menu">
-						<div name="author_list" id="author_list">
-						
-						</div>
+						<div name="author_list" id="author_list"></div>
 					</ul>
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
-						<li><h3>MyLib</h3> <i
-								class="glyphicon glyphicon-heart-empty"></i> Impetus</li>
+						<li><h4>MyLib</h4> 
+							Impetus</li>
 					</ul>
 
 				</div>
@@ -105,9 +109,10 @@ mylib-figcaption {
 								<li><h3>MyLib - Library Management Solution</h3></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#"> Home</a></li>
-								<li><a href="#"> SignUp</a></li>
-								<li><a href="#"> Login</a></li>
+								<!--  <li><a href="#"> Home</a></li>-->
+								<li><a href="#">SignUp</a></li>
+								<li><a href="">|</a></li>
+								<li><a href="${baseURL}/view/lib_login.jsp">Login</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -118,18 +123,24 @@ mylib-figcaption {
 						<div class="full">
 							<form class="form">
 								<div class="list-inline"
-									style="max-width: 360px; text-align: right;">
-									<p>
-										<input type="text" class="form-control" placeholder="Category"
-											name="srch-term" id="srch-term" /> <input type="text"
-											class="form-control" placeholder="Author" name="srch-term"
-											id="srch-term" /> <input type="text" class="form-control"
-											placeholder="Book name" name="srch-term" id="srch-term" />
-									</p>
-									<div class="input-group-btn">
-										<button class="btn btn-primary pull-right" type="submit">Search
-										</button>
-									</div>
+									style="max-width: 100%; text-align: right; float: left">
+									<table>
+										<tr>
+											<td><input type="text" class="form-control"
+												placeholder="Category" name="srch-term" id="srch-term" /></td>
+											<td><input type="text" class="form-control"
+												placeholder="Author" name="srch-term" id="srch-term" /></td>
+											<td><input type="text" class="form-control"
+												placeholder="Book name" name="srch-term" id="srch-term" /></td>
+											<td>
+												<div class="input-group-btn">
+													<button class="btn btn-primary pull-right" type="submit">Search
+													</button>
+
+												</div>
+											</td>
+										</tr>
+									</table>
 								</div>
 							</form>
 						</div>
@@ -147,10 +158,10 @@ mylib-figcaption {
 											<h4>Books</h4>
 										</div>
 										<div class="panel-body">
-											
+
 											<div id="book_catalogue" name="book_catalogue"
-												class="mylib-wrapper "/>
-											
+												class="mylib-wrapper " />
+
 											<hr>
 										</div>
 									</div>
@@ -182,7 +193,7 @@ mylib-figcaption {
 
 	<script>
 		var base_url = "/elibrary";
-		
+
 		(function() {
 			var booksAPI = "/elibrary/ws/book/listBooks";
 			$
@@ -194,20 +205,25 @@ mylib-figcaption {
 					.done(
 							function(data) {
 								var htmlCode = "";
-								for (var i = 0; i < data.length; i++) {
+								for ( var i = 0; i < data.length; i++) {
 
-									htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url + '/' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
-									htmlCode = htmlCode + '<mylib-figcaption>' + data[i].name + '</mylib-figcaption> ';
-									htmlCode = htmlCode + '</mylib-figure> </div>';
+									htmlCode = htmlCode
+											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url + '/' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode + '<mylib-figcaption>'
+											+ data[i].name
+											+ '</mylib-figcaption> ';
+									htmlCode = htmlCode
+											+ '</mylib-figure> </div>';
 								}
-								var divs = document.getElementsByName("book_catalogue");
+								var divs = document
+										.getElementsByName("book_catalogue");
 								divs[0].innerHTML = "";
-								alert(htmlCode);
+								//alert(htmlCode);
 								divs[0].innerHTML = htmlCode;
 
 							});
 		})();
-		
+
 		(function() {
 			var booksAPI = "/elibrary/ws/book/listAllAuthors";
 			$
@@ -219,42 +235,51 @@ mylib-figcaption {
 					.done(
 							function(data) {
 								var htmlCode = "";
-								for (var i = 0; i < data.length; i++) {
+								for ( var i = 0; i < data.length; i++) {
 
-									htmlCode = htmlCode + '<li class="active"><a href="javaScript:listByAuthor(\''+data[i].author+'\');"> '+ data[i].author+ '</a></li>';
+									htmlCode = htmlCode
+											+ '<li class="active"><a href="javaScript:listByAuthor(\''
+											+ data[i].author + '\');"> '
+											+ data[i].author + '</a></li>';
 								}
-								var divs = document.getElementsByName("author_list");
+								var divs = document
+										.getElementsByName("author_list");
 								divs[0].innerHTML = "";
-								alert(htmlCode);
+								//alert(htmlCode);
 								divs[0].innerHTML = htmlCode;
 
 							});
 		})();
-		
-		function listByAuthor (author) {
+
+		function listByAuthor(author) {
 			var booksAPI = "/elibrary/ws/book/listBooks";
 			$
-			.getJSON(booksAPI, {
-				jtStartIndex : "0",
-				jtPageSize : "20",
-				author : author,
-				format : "json"
-			})
-			.done(
-					function(data) {
-						var htmlCode = "";
-						for (var i = 0; i < data.length; i++) {
+					.getJSON(booksAPI, {
+						jtStartIndex : "0",
+						jtPageSize : "20",
+						author : author,
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								for ( var i = 0; i < data.length; i++) {
 
-							htmlCode = htmlCode	+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url +'/'+ data[i].imageUrl + '" alt="'+data[i].name+'" />';
-							htmlCode = htmlCode + '<mylib-figcaption>' + data[i].name + '</mylib-figcaption> ';
-							htmlCode = htmlCode + '</mylib-figure> </div>';
-						}
-						var divs = document.getElementsByName("book_catalogue");
-						divs[0].innerHTML = "";
-						alert(htmlCode);
-						divs[0].innerHTML = htmlCode;
+									htmlCode = htmlCode
+											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url +'/'+ data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode + '<mylib-figcaption>'
+											+ data[i].name
+											+ '</mylib-figcaption> ';
+									htmlCode = htmlCode
+											+ '</mylib-figure> </div>';
+								}
+								var divs = document
+										.getElementsByName("book_catalogue");
+								divs[0].innerHTML = "";
+								//alert(htmlCode);
+								divs[0].innerHTML = htmlCode;
 
-					});
+							});
 		};
 	</script>
 </body>

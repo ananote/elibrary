@@ -28,14 +28,14 @@
 				status : {
 					title : 'status',
 					options : {
-						'1' : 'Unshelfed',
-						'2' : 'Shelfed',
-						'3' : 'Requested',
-						'4' : 'Cancelled',
-						'5' : 'Ready',
-						'6' : 'Issued',
-						'7' : 'Request_Return',
-						'8' : 'Returned'
+						'Unshelfed' : 'Unshelfed',
+						'Shelfed' : 'Shelfed',
+						'Requested' : 'Requested',
+						'Cancelled' : 'Cancelled',
+						'Ready' : 'Ready',
+						'Issued' : 'Issued',
+						'Request_Return' : 'Request_Return',
+						'Returned' : 'Returned'
 					}
 				},
 				bookName : {

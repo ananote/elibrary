@@ -51,6 +51,7 @@ public class LoginController {
 		}
 	}
 
+		
 	@RequestMapping(value = "/logoutUser", method = RequestMethod.GET)
 	protected ModelAndView logoutUser(HttpServletRequest request) {
 		try {

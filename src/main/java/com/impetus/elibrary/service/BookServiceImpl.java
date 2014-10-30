@@ -21,8 +21,10 @@ public class BookServiceImpl implements BookService {
 		return bookDao.saveOrUpdate(book);
 	}
 
-	public List<Book> list(int startIndex, int pageSize, Field sortColumn, boolean asc) {
-		List<Book> bookList = bookDao.list();
+	public List<Book> list(int startIndex, int pageSize, String filterColumnName, 
+			String filterColumnValue, Field sortColumn, boolean asc) {
+		
+		List<Book> bookList = bookDao.list(filterColumnName, filterColumnValue);
 		
 		if(! StringUtils.isEmpty(sortColumn)){
 			bookList = ModelUtils.sortOn(bookList, sortColumn, asc);

@@ -3,9 +3,10 @@
 <%@page import="java.util.Date"%>
 <%@page import="com.impetus.elibrary.model.User"%>
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="req" value="${pageContext.request}" />
-<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+<c:set var="baseURL"
+	value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -68,6 +69,18 @@ mylib-figcaption {
 	background-repeat: no-repeat;
 	text-align: center;
 }
+
+.mylib-alignleft {
+	float: left;
+}
+
+.mylib-alignright {
+	float: right;
+}
+
+.mylib-aligncenter {
+	float: center;
+}
 </style>
 </head>
 
@@ -87,20 +100,39 @@ mylib-figcaption {
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-header">
 						<li>
-							<h3>MyLib</h3>
-							 <%
-				             User user = (User) session.getAttribute("user");
-			 %> <b>Welcome <%= user.getName() %></b>
-							<br />
+							<h3>MyLib</h3> <%
+ 	User user = (User) session.getAttribute("user");
+ %> <b>Welcome <%=user.getName()%></b> <br />
 						</li>
 					</ul>
 					<ul class="nav hidden-xs" id="lg-menu">
-						<div name="author_list" id="author_list"></div>
+						<!-- <div name="author_list" id="author_list"> </div> -->
+						<h5>
+							<a href="#">My Shelf</a>
+						</h5>
+						<h5>
+							<a href="#">Book Issued</a>
+						</h5>
+						<h5>
+							<a href="#">Request Book</a>
+						</h5>
+						<h5>
+							<a>History</a>
+						</h5>
+						<h6>
+							<a> </a><a href="#">Books</a>
+						</h6>
+						<h6>
+							<a> </a><a href="#">Subscriptions</a>
+						</h6>
+						<h5>
+							<a href="#">Profile</a>
+						</h5>
+
 					</ul>
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
-						<li><a href="http://www.bootply.com"><h3>MyLib-Login</h3>
-								<i class="glyphicon glyphicon-heart-empty"></i> Impetus</a></li>
+						<li><h4>MyLib-User Home</h4> Impetus</li>
 					</ul>
 
 				</div>
@@ -116,13 +148,38 @@ mylib-figcaption {
 								<li><h3>MyLib - Library Management Solution</h3></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#"> SignUp</a></li>
+								<li><a class="mylib-alignright"
+									href="${baseURL}/ws/login/logoutUser"> <font color="white">Signout</font></a></li>
 							</ul>
 						</nav>
 					</div>
 					<!-- /top nav -->
 
 					<div class="padding">
+						<div class="full">
+							<form class="form">
+								<div class="list-inline"
+									style="max-width: 100%; text-align: right; float: left">
+									<table>
+										<tr>
+											<td><input type="text" class="form-control"
+												placeholder="Category" name="srch-term" id="srch-term" /></td>
+											<td><input type="text" class="form-control"
+												placeholder="Author" name="srch-term" id="srch-term" /></td>
+											<td><input type="text" class="form-control"
+												placeholder="Book name" name="srch-term" id="srch-term" /></td>
+											<td>
+												<div class="input-group-btn">
+													<button class="btn btn-primary pull-right" type="submit">Search
+													</button>
+
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</form>
+						</div>
 
 						<div class="full col-sm-9">
 

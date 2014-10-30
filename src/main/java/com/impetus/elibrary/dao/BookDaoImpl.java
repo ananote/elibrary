@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.impetus.elibrary.model.Book;
 
@@ -38,6 +39,29 @@ public class BookDaoImpl  implements BookDao {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<Book> bookList = session.createQuery("from Book").list();
+		session.close();
+		return bookList;
+	}
+	
+	@Override
+	public List<Book> list(String filterColumnName, 
+			String filterColumnValue) {
+		
+		Session session = sessionFactory.openSession();
+		StringBuffer sbQuery = new StringBuffer();
+		sbQuery.append("from Book");
+		if("*".equals(filterColumnValue)
+				|| StringUtils.isEmpty(filterColumnName)
+				|| StringUtils.isEmpty(filterColumnValue)){
+		} else {
+			sbQuery.append(" where ");
+			sbQuery.append(filterColumnName);
+			sbQuery.append(" like '%");
+			sbQuery.append(filterColumnValue.trim());
+			sbQuery.append("%'");
+		}
+		@SuppressWarnings("unchecked")
+		List<Book> bookList = session.createQuery(sbQuery.toString()).list();
 		session.close();
 		return bookList;
 	}

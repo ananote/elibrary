@@ -32,9 +32,11 @@
 .mylib-alignleft {
 	float: left;
 }
+
 .mylib-alignright {
 	float: right;
 }
+
 .mylib-aligncenter {
 	float: center;
 }
@@ -42,9 +44,10 @@
 <body onload="showCrud(1)">
 
 	<div id="mylib-header">
-		<a class="mylib-alignright" href="${baseURL}/ws/login/logoutUser"><font color="white">Signout</font></a>
+		<a class="mylib-alignright" href="${baseURL}/ws/login/logoutUser"><font
+			color="white">Signout</font></a>
 		<h1 class="mylib-aligncenter">My Library - Admin Pages</h1>
-		
+
 	</div>
 
 	<div id="mylib-nav">
@@ -66,7 +69,16 @@
 	</div>
 
 	<div id="mylib-section">
-		<h4> MyLib CRUD Operations </h4>
+		<h4>MyLib Admin Operations</h4>
+		<div class="filtering">
+			<form>
+				Field: <select id="filterColumnName" name="filterColumnName">
+					<option selected="selected" value="*">All</option>
+				</select>
+				Value: <input type="text" name="filterColumnValue" id="filterColumnValue" />
+				<button type="submit" id="LoadRecordsButton">Search</button>
+			</form>
+		</div>
 		<div id="BookTableContainer"></div>
 		<div id="UserTableContainer"></div>
 		<div id="SubscriptionTableContainer"></div>
@@ -79,35 +91,44 @@
 
 	<script type="text/javascript">
 		$("#menu").menu();
+
+		loadFilterColumns(val);
 		
-		function showCrud (val) {
+		function showCrud(val) {
 			$("#BookTableContainer").hide();
 			$("#UserTableContainer").hide();
 			$("#SubscriptionTableContainer").hide();
 			$("#UserSubscriptionTableContainer").hide();
 			$("#BookRequestTableContainer").hide();
 			$("#UserEmailTableContainer").hide();
+			$("#ReportTableContainer").hide();
 			//alert(val);
-			switch (val)
-			{
-				case 1: $("#BookTableContainer").show();
+			switch (val) {
+			case 1:
+				$("#BookTableContainer").show();
 				break;
-				case 2: $("#UserTableContainer").show();
+			case 2:
+				$("#UserTableContainer").show();
 				break;
-				case 3: $("#SubscriptionTableContainer").show();
+			case 3:
+				$("#SubscriptionTableContainer").show();
 				break;
-				case 4: $("#UserSubscriptionTableContainer").show();
+			case 4:
+				$("#UserSubscriptionTableContainer").show();
 				break;
-				case 5: $("#BookRequestTableContainer").show();
+			case 5:
+				$("#BookRequestTableContainer").show();
 				break;
-				case 6: $("#UserEmailTableContainer").show();
+			case 6:
+				$("#UserEmailTableContainer").show();
 				break;
-				case 7: $("#ReportTableContainer").show();
+			case 7:
+				$("#ReportTableContainer").show();
 				break;
 			}
-						};
-			
+		};
 	</script>
+	<%@ include file="crud_load_filter_columns.jsp"%>
 	<%@ include file="crud_book.jsp"%>
 	<%@ include file="crud_user.jsp"%>
 	<%@ include file="crud_subscription.jsp"%>

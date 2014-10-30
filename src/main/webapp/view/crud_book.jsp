@@ -108,7 +108,19 @@
 				}
 			}
 		});
-
-		$('#BookTableContainer').jtable('load');
+		
+		//Re-load records when user click 'load records' button.
+        $('#LoadRecordsButton').click(function (e) {
+            e.preventDefault();
+            $('#BookTableContainer').jtable('load', {
+            	filterColumnName: $('#filterColumnName').val(),
+                filterColumnValue: $('#filterColumnValue').val()
+            });
+        });
+ 
+        //Load all records when page is first shown
+        $('#LoadRecordsButton').click();
+        
+		//$('#BookTableContainer').jtable('load');
 	});
 </script>

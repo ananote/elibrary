@@ -11,6 +11,8 @@ public interface BookDao {
 	public List<Book> list();
 	
 	public List<Book> list(Book criteria);
+	
+	public List<Book> list(String filterColumnName, String filterColumnValue);
 
 	public Book getById(int id);
 
