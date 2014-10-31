@@ -74,7 +74,7 @@ public class BookControllerGet {
 				field = Book.class.getField(jtSorting.substring(0, jtSorting.indexOf(" ")));
 				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
 			}
-			List<Book> list = bookService.list(jtStartIndex, jtPageSize, field, asc);
+			List<Book> list = bookService.list(jtStartIndex, jtPageSize, null, null, field, asc);
 			for (Book book : list) {
 				book.setBookRequests(null);
 				//book.setBookSubscriptions(null);
