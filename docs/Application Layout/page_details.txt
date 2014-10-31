@@ -1,0 +1,79 @@
+Page Details - 
+[1] Home Page - 
+ 1. Login|Sign Up|Contact Left top 
+ 2. List of Authors
+ 3. 2 boxes - 
+	a. Select/Type box to select Category 
+	b. Type Author Book Name to search the selected category book 
+ 4. Submit button for above mention text boxes
+ 5. One bar which holds above mentioned boxes and one link to Top rated books
+ 6. Left Side of the Screen will have random list of authors as link and on click they will give the list of their respective book list. 
+ 7. and in the centre top rated books images will be presented .. total 6 books will be displayed, and every time it will randomly pick the highly rated books.  
+================================================================================================================= 
+[2] Login Page - 
+ When user click on Login in above mentioned page a pop up will appear asking for the login information of the user (either admin or normal user). 
+ The pop will be focused and in background clicked home page will be visible. 
+ Once filling the login information and clicking on submit button, control will land to the User home Page. 
+================================================================================================================= 
+[3] Admin User Home Page - 
+
+will be divided into 2 parts Left side bar and remaining portion will show the dashboard reports in tabular/graphical form 
+-----------------------------------------------------------------------------------------------------------------
+Left Side Bar will have link for - 
+Books - expand to 
+				Add -  to add new book, it will open a new page in remaining area where it will ask to add book in CSV format(in bulk) and to add single book 
+				-----------------------------------------------------------------------------------------------------------------
+					Bulk - it will ask for the CSV file or XML file location to load data from it. 
+					...................................................................................
+					Single Book - It ask for various book attribute from Admin to put in the database, taking image and storing at the server on the defined location.
+				____________________________________________________________________________________________________________________
+				Delete - delete the book after searching 
+				____________________________________________________________________________________________________________________
+				Update -  update the book after searching
+				
+				____________________________________________________________________________________________________________________
+				search - searching can be on the basis of Author , book title and category. 
+					Search will result the book in a tabulate form which can be further eligible for editing (to update/add/delete)
+				____________________________________________________________________________________________________________________
+				show report - After clicking on Show report link it will show various parameters to select for the report which can be further exported to pdf format. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~								
+Subscription - Expand to show current subscription, add or update subscription 
+		It has to be done using XML file upload. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Users - this can be expanded to 
+			Active - Shows the list of active users 
+			Red Users - Who's activation period is about to end, and to whom Admin want to send a alert
+			User Requests - On clicking it, link will land on to Admin Mail box. And these mails have Status(read-unread) and types (HighAlert and Normal)
+			Shows the issued Books by the user, and change its status once they get received by user by marking it returned. 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Misc Reports - 
+a. Books Currently Issued
+b. Books are requested
+c. Users whose subscription date is about to over
+d. Which book is hot favourite
+e. Which is favourite Category 
+f. Books rented in particular time
+g. Books of a Author Rented in particular time frame
+h. Books of category rented in particular time frame
+i. No of books - shelfed, cancelled, ready, Issued, returned, Request_return, Requested in a certain time frame
+================================================================================================================= 
+[4] Member user - It will also divided into 2 parts Left side bar and content field. Its content will be recommendations for the user, it will either show the books (with image) as per its selected category choice, else top rated books. 
+If user is a member and exceeds the subscription book limit or period all the operation related to book request will be void for him. 
+ It can expand to - Books Issued, New Book Request, Search Book, Book Shelf, History (Book Requests, Subscriptions), Subscribe, Mailbox
+ -----------------------------------------------------------------------------------------------------------------
+	Books Issued - when clicked the right content area will show the list of Books issued to User and having operation to perform on book (return). 
+	____________________________________________________________________________________________________________________
+	New Book Request - User will make request for the new book by selecting category or searching for the book
+	____________________________________________________________________________________________________________________
+	Search Book - After searching the book the output will have option to either make it a new book request or add to shelf. 
+	____________________________________________________________________________________________________________________
+	Book Shelf - On Clicking book shelf, content will get populated to right area displaying a book shelf with user marked for book shelf. User can delete that book from book shelf and search more to add into the book shelf. 
+	____________________________________________________________________________________________________________________
+	History - 
+	Book History - User can get the list of books he operated on, which can be sorted on the basis of the status their status. 
+	Subscription History - Gives the report that user is subscribed for the particular subscription previously. 
+	____________________________________________________________________________________________________________________
+	Subscribe - will lend to the subscription page where user will select the subscription and subscribe for the subscription.
+	____________________________________________________________________________________________________________________
+	profile - it show the user profile (username, address, Change password Link, image)
+================================================================================================================= 	
