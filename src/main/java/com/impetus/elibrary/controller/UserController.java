@@ -37,10 +37,19 @@ public class UserController {
 		return new ModelAndView("crud_user");
 	}
 
-	@RequestMapping("/register")
+	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public ModelAndView registerUser(@ModelAttribute User user) {
-		userService.save(user);
-		return new ModelAndView("login");
+		try{
+			user.setRole("Role_User");
+			userService.save(user);
+		} catch (Exception ex){
+			logger.warning("Error while registering user - "+ ex.getMessage());
+			ModelAndView registerMAV = new ModelAndView("register_user");
+			registerMAV.addObject("user", user);
+			registerMAV.addObject("error", "System error occured while registering user...");
+			return registerMAV;
+		}
+		return new ModelAndView("lib_login");
 	}
 
 	@RequestMapping(value = "/listUsers", method = RequestMethod.POST)

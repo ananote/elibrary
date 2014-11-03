@@ -33,7 +33,7 @@ public class LoginController {
 
 			if (result == true) {
 				User user = userDao.getUserByUsername(username);
-				request.getSession().setAttribute("user", user);
+				request.getSession().setAttribute("loggedin_user", user);
 				if ("Role_Admin".equalsIgnoreCase(user.getRole())) {
 					return new ModelAndView("admin_home");
 				}
@@ -55,9 +55,9 @@ public class LoginController {
 	@RequestMapping(value = "/logoutUser", method = RequestMethod.GET)
 	protected ModelAndView logoutUser(HttpServletRequest request) {
 		try {
-			User user = (User) request.getSession().getAttribute("user");
+			User user = (User) request.getSession().getAttribute("loggedin_user");
 			System.out.println("Signing out user..." + user.getName());
-			request.getSession().removeAttribute("user");
+			request.getSession().removeAttribute("loggedin_user");
 			return new ModelAndView("lib_home");
 		} catch (Exception ex) {
 			ModelAndView homeMAV = new ModelAndView("lib_home");

@@ -1,9 +1,5 @@
-<%@page import="java.util.List"%>
-<%@page import="com.impetus.elibrary.service.LoginService"%>
-<%@page import="java.util.Date"%>
-<%@page import="com.impetus.elibrary.model.User"%>
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="baseURL"
 	value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
@@ -40,7 +36,7 @@
 	float: left;
 	margin: 10px;
 	height: 218px;
-	background-image: url("../img/shadow.png");
+	background-image: url("${baseURL}/img/shadow.png");
 	background-repeat: no-repeat;
 	background-position: bottom;
 }
@@ -64,22 +60,10 @@ mylib-figure img {
 }
 
 mylib-figcaption {
-	background-image: url("../img/icon.png");
+	background-image: url("${baseURL}/img/icon.png");
 	padding-left: 20px;
 	background-repeat: no-repeat;
 	text-align: center;
-}
-
-.mylib-alignleft {
-	float: left;
-}
-
-.mylib-alignright {
-	float: right;
-}
-
-.mylib-aligncenter {
-	float: center;
 }
 </style>
 </head>
@@ -100,41 +84,12 @@ mylib-figcaption {
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-header">
 						<li>
-							<h3>MyLib</h3> <%
- 	User user = (User) session.getAttribute("loggedin_user");
- %> <b>Welcome <%=user.getName()%></b> <br />
+							<h3>User Registration</h3>
 						</li>
 					</ul>
-					<ul class="nav hidden-xs" id="lg-menu">
-						<!-- <div name="author_list" id="author_list"> </div> -->
-						<h5>
-							<a href="#">My Shelf</a>
-						</h5>
-						<h5>
-							<a href="#">Book Issued</a>
-						</h5>
-						<h5>
-							<a href="#">Request Book</a>
-						</h5>
-						<h5>
-							<a>History</a>
-						</h5>
-						<h6>
-							<a> </a><a href="#">Books</a>
-						</h6>
-						<h6>
-							<a> </a><a href="#">Subscriptions</a>
-						</h6>
-						<h5>
-							<a href="#">Profile</a>
-						</h5>
-
-					</ul>
-
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
-						<li><h4>MyLib-User Home</h4> Impetus</li>
+						<li><h4>MyLib</h4> Impetus</li>
 					</ul>
-
 				</div>
 				<!-- /sidebar -->
 
@@ -147,64 +102,116 @@ mylib-figcaption {
 							<ul class="nav navbar-nav">
 								<li><h3>MyLib - Library Management Solution</h3></li>
 							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li><a class="mylib-alignright"
-									href="${baseURL}/ws/login/logoutUser"> <font color="white">Signout</font></a></li>
-							</ul>
 						</nav>
 					</div>
 					<!-- /top nav -->
 
 					<div class="padding">
-						<div class="full">
-							<form class="form">
-								<div class="list-inline"
-									style="max-width: 100%; text-align: right; float: left">
-									<table>
-										<tr>
-											<td><input type="text" class="form-control"
-												placeholder="Category" name="srch-term" id="srch-term" /></td>
-											<td><input type="text" class="form-control"
-												placeholder="Author" name="srch-term" id="srch-term" /></td>
-											<td><input type="text" class="form-control"
-												placeholder="Book name" name="srch-term" id="srch-term" /></td>
-											<td>
-												<div class="input-group-btn">
-													<button class="btn btn-primary pull-right" type="submit">Search
-													</button>
-
-												</div>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</form>
-						</div>
-
 						<div class="full col-sm-9">
-
 							<!-- content -->
 							<div class="row">
-
 								<!-- main col left -->
 								<div>
-
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h4>Login</h4>
+											<h4>Registration : Please enter the details asked</h4>
 										</div>
 										<div class="panel-body">
 
-
-											<hr>
+											<form action="/elibrary/ws/user/register" method="POST">
+												<table>
+													<tr>
+														<td colspan="3"><font color="red">&nbsp;${error}</font></td>
+													</tr>
+													<tr>
+														<td>First Name:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="first_name"></td>
+													</tr>
+													<tr>
+														<td>Name:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="Name"></td>
+													</tr>
+													<tr>
+														<td>username:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="username" required="true"></td>
+													</tr>
+													<tr>
+														<td>Password:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="Password"></td>
+													</tr>
+													<tr>
+														<td>email:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="email"></td>
+													</tr>
+													<tr>
+														<td>address1:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="address1"></td>
+													</tr>
+													<tr>
+														<td>address2:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="address2"></td>
+													</tr>
+													<tr>
+														<td>City:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="City"></td>
+													</tr>
+													<tr>
+														<td>Pin:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="Pin"></td>
+													</tr>
+													<tr>
+														<td>Mobile:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="Mobile"></td>
+													</tr>
+													<tr>
+														<td>Landline:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="Landline"></td>
+													</tr>
+													<tr>
+														<td>Favoruite_category1:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="Favoruite_category1"></td>
+													</tr>
+													<tr>
+														<td>Favoruite_category2:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="Favoruite_category2"></td>
+													</tr>
+													<tr>
+														<td>user_image_url:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="user_image_url"></td>
+													</tr>
+													<tr>
+														<td>language:</td>
+														<td>&nbsp;</td>
+														<td><input type="text" name="language"></td>
+													</tr>
+													<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+													<tr>
+														<td></td>
+														<td><input type="submit" value="Submit" /></td>
+														<td><input type="reset" value="Reset" /></td>
+													</tr>
+												</table>
+											</form>
+											
 										</div>
 									</div>
-
-
 								</div>
 							</div>
 							<!--/row-->
-
 							<div class="row" id="footer">
 								<div class="col-sm-6"></div>
 								<div class="col-sm-6">
