@@ -67,7 +67,17 @@
 				},
 				daysBookIssued : {
 					title : 'daysBookIssued'
+				},
+				updateTimestamp : {
+					title : 'updateTimestamp',
+					type: 'datetime',
+					displayFormat: 'd/m/Y H:i'
+				},
+				adminResponse : {
+					title : 'adminResponse'
+					
 				}
+				
 			}
 		});
 

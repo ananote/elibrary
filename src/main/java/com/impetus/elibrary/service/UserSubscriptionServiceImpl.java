@@ -17,10 +17,12 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
 	@Autowired
 	UserSubscriptionDao userSubscriptionDao;
 
+	@Override
 	public int save(UserSubscription userSubscription) {
 		return userSubscriptionDao.saveOrUpdate(userSubscription);
 	}
 
+	@Override
 	public List<UserSubscription> list(int startIndex, int pageSize, Field sortColumn, boolean asc) {
 		List<UserSubscription> userSubscriptionList = userSubscriptionDao.list();
 		
@@ -31,14 +33,17 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
 		return userSubscriptionList;
 	}
 
+	@Override
 	public List<UserSubscription> list(UserSubscription criteria) {
 		return userSubscriptionDao.list(criteria);
 	}
 
+	@Override
 	public UserSubscription getById(int id) {
 		return userSubscriptionDao.getById(id);
 	}
 
+	@Override
 	public int delete(int id) {
 		return userSubscriptionDao.delete(id);
 	}

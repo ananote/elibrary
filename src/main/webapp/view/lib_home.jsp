@@ -92,8 +92,7 @@ mylib-figcaption {
 					</ul>
 
 					<ul class="list-unstyled hidden-xs" id="sidebar-footer">
-						<li><h4>MyLib</h4> 
-							Impetus</li>
+						<li><h4>MyLib</h4> Impetus</li>
 					</ul>
 
 				</div>

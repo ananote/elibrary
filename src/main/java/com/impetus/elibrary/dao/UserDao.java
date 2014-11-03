@@ -2,6 +2,7 @@ package com.impetus.elibrary.dao;
 
 import java.util.List;
 
+import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.model.User;
 
 public interface UserDao {
@@ -11,6 +12,8 @@ public interface UserDao {
 	public List<User> list();
 	
 	public List<User> list(User criteria);
+	
+	public List<User> list(String filterColumnName, String filterColumnValue);
 
 	public User getById(int id);
 

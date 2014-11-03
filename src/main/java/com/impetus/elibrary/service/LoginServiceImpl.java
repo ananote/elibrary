@@ -14,6 +14,7 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	UserDao userDao;
 
+	@Override
 	public boolean authenticate(String username, String password) {
 		System.out.println("USER= " + userDao);
 		User user = userDao.getUserByUsername(username);

@@ -41,6 +41,8 @@ public class UserController {
 	public ModelAndView registerUser(@ModelAttribute User user) {
 		try{
 			user.setRole("Role_User");
+			System.out.println("Favourite Cat1 = = " + user.getFavoruiteCategory1());
+			System.out.println("Favourite Cat1 = = " + user.getFavoruiteCategory2());
 			userService.save(user);
 		} catch (Exception ex){
 			logger.warning("Error while registering user - "+ ex.getMessage());
@@ -54,7 +56,8 @@ public class UserController {
 
 	@RequestMapping(value = "/listUsers", method = RequestMethod.POST)
 	public @ResponseBody JSONListResponse<User> getAllUsers(
-			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting) {
+			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting,
+			@RequestParam String filterColumnName, @RequestParam String filterColumnValue) {
 
 		logger.info("Start getAllUsers. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", jtSorting=" + jtSorting);
 		JSONListResponse<User> response = null;
@@ -66,7 +69,7 @@ public class UserController {
 				field = User.class.getField(jtSorting.substring(0, jtSorting.indexOf(" ")));
 				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
 			}
-			List<User> list = userService.list(jtStartIndex, jtPageSize, field, asc);
+			List<User> list = userService.list(jtStartIndex, jtPageSize, filterColumnName, filterColumnValue, field, asc);
 			for (User user : list) {
 				user.setBookRequests(null);
 				user.setUserSubscriptions(null);

@@ -12,7 +12,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.model.User;
 
 @Service
@@ -21,6 +23,7 @@ public class UserDaoImpl  implements UserDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
+	@Override
 	@Transactional
 	public int saveOrUpdate(User user) {
 		Session session = sessionFactory.openSession();
@@ -43,6 +46,7 @@ public class UserDaoImpl  implements UserDao {
 		return userList;
 	}
 
+	@Override
 	public List<User> list(User criteria) {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
@@ -50,13 +54,38 @@ public class UserDaoImpl  implements UserDao {
 		session.close();
 		return userList;
 	}
-
+ 
+	@Override
+	public List<User> list(String filterColumnName, 
+			String filterColumnValue) {
+		
+		Session session = sessionFactory.openSession();
+		StringBuffer sbQuery = new StringBuffer();
+		sbQuery.append("from User");
+		if("*".equals(filterColumnValue)
+				|| StringUtils.isEmpty(filterColumnName)
+				|| StringUtils.isEmpty(filterColumnValue)){
+		} else {
+			sbQuery.append(" where ");
+			sbQuery.append(filterColumnName);
+			sbQuery.append(" like '%");
+			sbQuery.append(filterColumnValue.trim());
+			sbQuery.append("%'");
+		}
+		@SuppressWarnings("unchecked")
+		List<User> userList = session.createQuery(sbQuery.toString()).list();
+		session.close();
+		return userList;
+	}
+	
+	@Override
 	public User getById(int id) {
 		Session session = sessionFactory.openSession();
 		User user = (User) session.load(User.class, id);
 		return user;
 	}
 
+	@Override
 	public int delete(int id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -68,6 +97,7 @@ public class UserDaoImpl  implements UserDao {
 		return (Integer) ids;
 	}
 	
+	@Override
 	public User getUserByUsername(String username) {
 		Session session = sessionFactory.openSession();
 		 Transaction tx = null;
@@ -89,6 +119,7 @@ public class UserDaoImpl  implements UserDao {
 		 return user;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> getListOfUsers() {
 		List<User> list = new ArrayList<User>();

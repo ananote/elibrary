@@ -45,6 +45,14 @@ public class BookRequest implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="return_request_date")
 	private Date returnRequestDate;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="update_timestamp")
+	private Date updateTimestamp;
+	
+	@Column(name="admin_response")
+	private short adminResponse;
+	 
 
 	private String status;
 
@@ -124,6 +132,14 @@ public class BookRequest implements Serializable {
 	public void setReturnRequestDate(Date returnRequestDate) {
 		this.returnRequestDate = returnRequestDate;
 	}
+	
+	public Date getUpdateTimestamp() {
+		return this.updateTimestamp;
+	}
+
+	public void setUpdateTimestamp(Date updateTimestamp) {
+		this.updateTimestamp= updateTimestamp;
+	}
 
 	public String getStatus() {
 		return this.status;
@@ -148,5 +164,14 @@ public class BookRequest implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public short getAdminResponse() {
+		return this.adminResponse;
+	}
+	
+	public void setAdminResponse(short adminResponse) {
+		this.adminResponse = adminResponse;
+	}
+
 
 }

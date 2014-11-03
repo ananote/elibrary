@@ -17,10 +17,12 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	BookDao bookDao;
 
+	@Override
 	public int save(Book book) {
 		return bookDao.saveOrUpdate(book);
 	}
 
+	@Override
 	public List<Book> list(int startIndex, int pageSize, String filterColumnName, 
 			String filterColumnValue, Field sortColumn, boolean asc) {
 		
@@ -33,18 +35,22 @@ public class BookServiceImpl implements BookService {
 		return bookList;
 	}
 
+	@Override
 	public List<Book> list(Book criteria) {
 		return bookDao.list(criteria);
 	}
 
+	@Override
 	public Book getById(int id) {
 		return bookDao.getById(id);
 	}
 
+	@Override
 	public int delete(int id) {
 		return bookDao.delete(id);
 	}
 	
+	@Override
 	public List<String> getAllAuthors()
 	{
 	List<String> authorList = bookDao.getAllAuthors();

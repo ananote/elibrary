@@ -17,10 +17,12 @@ public class UserEmailServiceImpl implements UserEmailService {
 	@Autowired
 	UserEmailDao userEmailDao;
 
+	@Override
 	public int save(UserEmail userEmail) {
 		return userEmailDao.saveOrUpdate(userEmail);
 	}
 
+	@Override
 	public List<UserEmail> list(int startIndex, int pageSize, Field sortColumn, boolean asc) {
 		List<UserEmail> userEmailList = userEmailDao.list();
 		
@@ -31,14 +33,17 @@ public class UserEmailServiceImpl implements UserEmailService {
 		return userEmailList;
 	}
 
+	@Override
 	public List<UserEmail> list(UserEmail criteria) {
 		return userEmailDao.list(criteria);
 	}
 
+	@Override
 	public UserEmail getById(int id) {
 		return userEmailDao.getById(id);
 	}
 
+	@Override
 	public int delete(int id) {
 		return userEmailDao.delete(id);
 	}

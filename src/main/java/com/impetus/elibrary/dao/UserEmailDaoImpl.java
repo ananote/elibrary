@@ -19,6 +19,7 @@ public class UserEmailDaoImpl  implements UserEmailDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
+	@Override
 	@Transactional
 	public int saveOrUpdate(UserEmail userEmail) {
 		Session session = sessionFactory.openSession();
@@ -41,6 +42,7 @@ public class UserEmailDaoImpl  implements UserEmailDao {
 		return userEmailList;
 	}
 
+	@Override
 	public List<UserEmail> list(UserEmail criteria) {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
@@ -49,12 +51,14 @@ public class UserEmailDaoImpl  implements UserEmailDao {
 		return userEmailList;
 	}
 
+	@Override
 	public UserEmail getById(int id) {
 		Session session = sessionFactory.openSession();
 		UserEmail userEmail = (UserEmail) session.load(UserEmail.class, id);
 		return userEmail;
 	}
 
+	@Override
 	public int delete(int id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();

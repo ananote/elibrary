@@ -124,37 +124,33 @@ mylib-figcaption {
 														<td colspan="3"><font color="red">&nbsp;${error}</font></td>
 													</tr>
 													<tr>
-														<td>First Name:</td>
-														<td>&nbsp;</td>
-														<td><input type="text" name="first_name"></td>
-													</tr>
-													<tr>
 														<td>Name:</td>
 														<td>&nbsp;</td>
 														<td><input type="text" name="Name"></td>
 													</tr>
 													<tr>
-														<td>username:</td>
+														<td>Username:</td>
 														<td>&nbsp;</td>
-														<td><input type="text" name="username" required="true"></td>
+														<td><input type="text" name="username"
+															required="true"></td>
 													</tr>
 													<tr>
 														<td>Password:</td>
 														<td>&nbsp;</td>
-														<td><input type="text" name="Password"></td>
+														<td><input type="password" name="Password"></td>
 													</tr>
 													<tr>
-														<td>email:</td>
+														<td>Email:</td>
 														<td>&nbsp;</td>
 														<td><input type="text" name="email"></td>
 													</tr>
 													<tr>
-														<td>address1:</td>
+														<td>Address Line1:</td>
 														<td>&nbsp;</td>
 														<td><input type="text" name="address1"></td>
 													</tr>
 													<tr>
-														<td>address2:</td>
+														<td>Address Line2:</td>
 														<td>&nbsp;</td>
 														<td><input type="text" name="address2"></td>
 													</tr>
@@ -179,26 +175,116 @@ mylib-figcaption {
 														<td><input type="text" name="Landline"></td>
 													</tr>
 													<tr>
-														<td>Favoruite_category1:</td>
+														<td>Favoruite Category 1:</td>
 														<td>&nbsp;</td>
-														<td><input type="text" name="Favoruite_category1"></td>
+														<td><select name="favoruiteCategory1">
+																<option value="Anthologies" selected>Anthologies</option>
+																<option value="Art">Art</option>
+																<option value="Autobiographies">Autobiographies</option>
+																<option value="Aiographies">Biographies</option>
+																<option value="Comics">Comics</option>
+																<option value="Computer">Computer</option>
+																<option value="Cookbooks">Cookbooks</option>
+																<option value="Diaries">Diaries</option>
+																<option value="Dictionaries">Dictionaries</option>
+																<option value="Drama">Drama</option>
+																<option value="Encyclopaedia">Encyclopaedia</option>
+																<option value="Fantasy">Fantasy</option>
+																<option value="Fiction">Fiction</option>
+																<option value="Games">Games</option>
+																<option value="Geography">Geography</option>
+																<option value="Guide">Guide</option>
+																<option value="History">History</option>
+																<option value="Horror">Horror</option>
+																<option value="Java">Java</option>
+																<option value="Journals">Journals</option>
+																<option value="Kids">Kids</option>
+																<option value="Literature">Literature</option>
+																<option value="Maths">Maths</option>
+																<option value="Microsoft">Microsoft</option>
+																<option value="Mystery">Mystery</option>
+																<option value="Mythology">Mythology</option>
+																<option value="Oracle">Oracle</option>
+																<option value="Poetry">Poetry</option>
+																<option value="Prayer books">Prayer Books</option>
+																<option value="Programming">Programming</option>
+																<option value="Quiz">Quiz</option>
+																<option value="Religious">Religious</option>
+																<option value="Romance">Romance</option>
+																<option value="Satire">Satire</option>
+																<option value="Science">Science</option>
+																<option value="Science fiction">Science fiction</option>
+																<option value="Self help">Self help</option>
+																<option value="Series">Series</option>
+																<option value="Sports">Sports</option>
+																<option value="Technology">Technology</option>
+																<option value="Travel">Travel</option>
+																<option value="Trilogies">Trilogies</option>
+														</select></td>
 													</tr>
 													<tr>
-														<td>Favoruite_category2:</td>
+														<td>Favoruite Category 2:</td>
 														<td>&nbsp;</td>
-														<td><input type="text" name="Favoruite_category2"></td>
+														<td><select name="favoruiteCategory2">
+																<option value="Anthologies" selected>Anthologies</option>
+																<option value="Art">Art</option>
+																<option value="Autobiographies">Autobiographies</option>
+																<option value="Aiographies">Biographies</option>
+																<option value="Comics">Comics</option>
+																<option value="Computer">Computer</option>
+																<option value="Cookbooks">Cookbooks</option>
+																<option value="Diaries">Diaries</option>
+																<option value="Dictionaries">Dictionaries</option>
+																<option value="Drama">Drama</option>
+																<option value="Encyclopaedia">Encyclopaedia</option>
+																<option value="Fantasy">Fantasy</option>
+																<option value="Fiction">Fiction</option>
+																<option value="Games">Games</option>
+																<option value="Geography">Geography</option>
+																<option value="Guide">Guide</option>
+																<option value="History">History</option>
+																<option value="Horror">Horror</option>
+																<option value="Java">Java</option>
+																<option value="Journals">Journals</option>
+																<option value="Kids">Kids</option>
+																<option value="Literature">Literature</option>
+																<option value="Maths">Maths</option>
+																<option value="Microsoft">Microsoft</option>
+																<option value="Mystery">Mystery</option>
+																<option value="Mythology">Mythology</option>
+																<option value="Oracle">Oracle</option>
+																<option value="Poetry">Poetry</option>
+																<option value="Prayer books">Prayer Books</option>
+																<option value="Programming">Programming</option>
+																<option value="Quiz">Quiz</option>
+																<option value="Religious">Religious</option>
+																<option value="Romance">Romance</option>
+																<option value="Satire">Satire</option>
+																<option value="Science">Science</option>
+																<option value="Science fiction">Science fiction</option>
+																<option value="Self help">Self help</option>
+																<option value="Series">Series</option>
+																<option value="Sports">Sports</option>
+																<option value="Technology">Technology</option>
+																<option value="Travel">Travel</option>
+																<option value="Trilogies">Trilogies</option>
+														</select></td>
 													</tr>
 													<tr>
-														<td>user_image_url:</td>
+														<td>User Image:</td>
 														<td>&nbsp;</td>
 														<td><input type="text" name="user_image_url"></td>
 													</tr>
 													<tr>
-														<td>language:</td>
+														<td>Language:</td>
 														<td>&nbsp;</td>
 														<td><input type="text" name="language"></td>
 													</tr>
-													<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+													<tr>
+														<td>&nbsp;</td>
+														<td>&nbsp;</td>
+														<td>&nbsp;</td>
+													</tr>
 													<tr>
 														<td></td>
 														<td><input type="submit" value="Submit" /></td>
@@ -206,7 +292,7 @@ mylib-figcaption {
 													</tr>
 												</table>
 											</form>
-											
+
 										</div>
 									</div>
 								</div>

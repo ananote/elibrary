@@ -20,7 +20,8 @@ public class BookDaoImpl  implements BookDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
-
+    
+	@Override
 	@Transactional
 	public int saveOrUpdate(Book book) {
 		Session session = sessionFactory.openSession();
@@ -66,6 +67,7 @@ public class BookDaoImpl  implements BookDao {
 		return bookList;
 	}
 
+	@Override
 	public List<Book> list(Book criteria) {
 		Session session = sessionFactory.openSession();
 		
@@ -87,6 +89,7 @@ public class BookDaoImpl  implements BookDao {
 		return bookList;
 	}
 
+	@Override
 	public Book getById(int id) {
 		Session session = sessionFactory.openSession();
 		Book book = (Book) session.load(Book.class, id);
@@ -94,6 +97,7 @@ public class BookDaoImpl  implements BookDao {
 		return book;
 	}
 
+	@Override
 	public int delete(int id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -105,6 +109,7 @@ public class BookDaoImpl  implements BookDao {
 		return (Integer) ids;
 	}
 	
+	@Override
 	public List<String> getAllAuthors(){
 		Session session = sessionFactory.openSession();
 		String queryStr="select distinct author from Book where (author is not null and author!='') order by author";

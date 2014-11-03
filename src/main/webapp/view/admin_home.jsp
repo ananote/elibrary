@@ -70,13 +70,21 @@
 
 	<div id="mylib-section">
 		<h4>MyLib Admin Operations</h4>
+
 		<div class="filtering">
 			<form>
-				Field: <select id="filterColumnName" name="filterColumnName">
-					<option selected="selected" value="*">All</option>
-				</select>
-				Value: <input type="text" name="filterColumnValue" id="filterColumnValue" />
-				<button type="submit" id="LoadRecordsButton">Search</button>
+				<table>
+					<tr>
+						<td>Field</td>
+						<td><select id="filterColumnName" name="filterColumnName">
+								<option selected="selected" value="*">All</option>
+						</select></td>
+						<td>Value</td>
+						<td><input type="text" name="filterColumnValue"
+							id="filterColumnValue" /></td>
+						<td><button type="submit" id="LoadRecordsButton">Search</button></td>
+					</tr>
+				</table>
 			</form>
 		</div>
 		<div id="BookTableContainer"></div>
@@ -89,12 +97,18 @@
 
 	<div id="mylib-footer">Copyright © Impetus.com</div>
 
+	<%@ include file="crud_load_filter_columns.jsp"%>
+	<%@ include file="crud_book.jsp"%>
+	<%@ include file="crud_user.jsp"%>
+	<%@ include file="crud_subscription.jsp"%>
+	<%@ include file="crud_userSubscription.jsp"%>
+	<%@ include file="crud_bookRequest.jsp"%>
+	<%@ include file="crud_userEmail.jsp"%>
 	<script type="text/javascript">
 		$("#menu").menu();
 
-		loadFilterColumns(val);
-		
 		function showCrud(val) {
+
 			$("#BookTableContainer").hide();
 			$("#UserTableContainer").hide();
 			$("#SubscriptionTableContainer").hide();
@@ -126,14 +140,9 @@
 				$("#ReportTableContainer").show();
 				break;
 			}
+			loadFilterColumns(val);
 		};
 	</script>
-	<%@ include file="crud_load_filter_columns.jsp"%>
-	<%@ include file="crud_book.jsp"%>
-	<%@ include file="crud_user.jsp"%>
-	<%@ include file="crud_subscription.jsp"%>
-	<%@ include file="crud_userSubscription.jsp"%>
-	<%@ include file="crud_bookRequest.jsp"%>
-	<%@ include file="crud_userEmail.jsp"%>
+
 </body>
 <%@ include file="crud_footer.jsp"%>

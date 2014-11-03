@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="req" value="${pageContext.request}" />
-<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+<c:set var="baseURL"
+	value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -108,7 +109,7 @@ mylib-figcaption {
 								<li><h3>MyLib - Library Management Solution</h3></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="register_user.jsp"> SignUp</a></li>
+								<li><a href="${baseURL}/view/register_user.jsp"> SignUp</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -147,11 +148,9 @@ mylib-figcaption {
 																<td><input type="password" name="password" /></td>
 															</tr>
 															<tr>
-																<td colspan="2">
-																<c:if test="${not empty errorMsg}">
-  																	<font color="red">${errorMsg}</font>
-																</c:if>
-																</td>
+																<td colspan="2"><c:if test="${not empty errorMsg}">
+																		<font color="red">${errorMsg}</font>
+																	</c:if></td>
 															</tr>
 															<tr>
 																<td></td>
@@ -160,8 +159,8 @@ mylib-figcaption {
 															</tr>
 															<tr>
 																<td colspan="2">Yet Not Registered!! <a
-																	href="register_user.jsp"><b><font color="blue">
-																				Register Here</font><b></a>
+																	href="${baseURL}/view/register_user.jsp"><b><font
+																			color="blue"> Register Here</font><b></a>
 																</td>
 															</tr>
 														</tbody>

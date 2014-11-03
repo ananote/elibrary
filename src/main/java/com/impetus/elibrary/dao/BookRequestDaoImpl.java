@@ -10,7 +10,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.model.BookRequest;
 
 @Service
@@ -19,6 +21,7 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
+	@Override
 	@Transactional
 	public int saveOrUpdate(BookRequest bookRequest) {
 		Session session = sessionFactory.openSession();
@@ -40,7 +43,31 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 		session.close();
 		return bookRequestList;
 	}
+	
+	@Override
+	public List<BookRequest> list(String filterColumnName, 
+			String filterColumnValue) {
+		
+		Session session = sessionFactory.openSession();
+		StringBuffer sbQuery = new StringBuffer();
+		sbQuery.append("from BookRequest");
+		if("*".equals(filterColumnValue)
+				|| StringUtils.isEmpty(filterColumnName)
+				|| StringUtils.isEmpty(filterColumnValue)){
+		} else {
+			sbQuery.append(" where ");
+			sbQuery.append(filterColumnName);
+			sbQuery.append(" like '%");
+			sbQuery.append(filterColumnValue.trim());
+			sbQuery.append("%'");
+		}
+		@SuppressWarnings("unchecked")
+		List<BookRequest> bookRequestList = session.createQuery(sbQuery.toString()).list();
+		session.close();
+		return bookRequestList;
+	}
 
+	@Override
 	public List<BookRequest> list(BookRequest criteria) {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
@@ -49,12 +76,14 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 		return bookRequestList;
 	}
 
+	@Override
 	public BookRequest getById(int id) {
 		Session session = sessionFactory.openSession();
 		BookRequest bookRequest = (BookRequest) session.load(BookRequest.class, id);
 		return bookRequest;
 	}
 
+	@Override
 	public int delete(int id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();

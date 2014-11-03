@@ -19,6 +19,7 @@ public class SubscriptionDaoImpl  implements SubscriptionDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
+	@Override
 	@Transactional
 	public int saveOrUpdate(Subscription subscription) {
 		Session session = sessionFactory.openSession();
@@ -41,6 +42,7 @@ public class SubscriptionDaoImpl  implements SubscriptionDao {
 		return subscriptionList;
 	}
 
+	@Override
 	public List<Subscription> list(Subscription criteria) {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
@@ -49,12 +51,14 @@ public class SubscriptionDaoImpl  implements SubscriptionDao {
 		return subscriptionList;
 	}
 
+	@Override
 	public Subscription getById(int id) {
 		Session session = sessionFactory.openSession();
 		Subscription subscription = (Subscription) session.load(Subscription.class, id);
 		return subscription;
 	}
 
+	@Override
 	public int delete(int id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();

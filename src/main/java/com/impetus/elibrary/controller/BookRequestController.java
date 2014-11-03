@@ -44,7 +44,8 @@ public class BookRequestController {
 
 	@RequestMapping(value = "/listBookRequests", method = RequestMethod.POST)
 	public @ResponseBody JSONListResponse<BookRequest> getAllBookRequests(
-			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting) {
+			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting,
+			@RequestParam String filterColumnName, @RequestParam String filterColumnValue) {
 
 		logger.info("Start getAllBookRequests. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", jtSorting=" + jtSorting);
 		JSONListResponse<BookRequest> response = null;
@@ -56,7 +57,7 @@ public class BookRequestController {
 				field = BookRequest.class.getField(jtSorting.substring(0, jtSorting.indexOf(" ")));
 				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
 			}
-			List<BookRequest> list = bookRequestService.list(jtStartIndex, jtPageSize, field, asc);
+			List<BookRequest> list = bookRequestService.list(jtStartIndex, jtPageSize, filterColumnName, filterColumnValue, field, asc);
 			/*for (BookRequest bookRequest : list) {
 				bookRequest.setBookRequests(null);
 				bookRequest.setBookRequestSubscriptions(null);

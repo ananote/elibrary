@@ -17,10 +17,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Autowired
 	SubscriptionDao subscriptionDao;
 
+	@Override
 	public int save(Subscription subscription) {
 		return subscriptionDao.saveOrUpdate(subscription);
 	}
 
+	@Override
 	public List<Subscription> list(int startIndex, int pageSize, Field sortColumn, boolean asc) {
 		List<Subscription> subscriptionList = subscriptionDao.list();
 		
@@ -31,14 +33,17 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		return subscriptionList;
 	}
 
+	@Override
 	public List<Subscription> list(Subscription criteria) {
 		return subscriptionDao.list(criteria);
 	}
 
+	@Override
 	public Subscription getById(int id) {
 		return subscriptionDao.getById(id);
 	}
 
+	@Override
 	public int delete(int id) {
 		return subscriptionDao.delete(id);
 	}

@@ -17,12 +17,15 @@ public class BookRequestServiceImpl implements BookRequestService {
 	@Autowired
 	BookRequestDao bookRequestDao;
 
+	@Override
 	public int save(BookRequest bookRequest) {
 		return bookRequestDao.saveOrUpdate(bookRequest);
 	}
 
-	public List<BookRequest> list(int startIndex, int pageSize, Field sortColumn, boolean asc) {
-		List<BookRequest> bookRequestList = bookRequestDao.list();
+	@Override
+	public List<BookRequest> list(int startIndex, int pageSize, String filterColumnName, 
+			String filterColumnValue, Field sortColumn, boolean asc) {
+		List<BookRequest> bookRequestList = bookRequestDao.list(filterColumnName, filterColumnValue);
 		
 		if(! StringUtils.isEmpty(sortColumn)){
 			bookRequestList = ModelUtils.sortOn(bookRequestList, sortColumn, asc);
@@ -31,14 +34,17 @@ public class BookRequestServiceImpl implements BookRequestService {
 		return bookRequestList;
 	}
 
+	@Override
 	public List<BookRequest> list(BookRequest criteria) {
 		return bookRequestDao.list(criteria);
 	}
 
+	@Override
 	public BookRequest getById(int id) {
 		return bookRequestDao.getById(id);
 	}
 
+	@Override
 	public int delete(int id) {
 		return bookRequestDao.delete(id);
 	}
