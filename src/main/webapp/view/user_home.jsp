@@ -163,14 +163,15 @@ mylib-figcaption {
 									<table>
 										<tr>
 											<td><input type="text" class="form-control"
-												placeholder="Category" name="srch-term" id="srch-term" /></td>
+												placeholder="Category" name="s_category" id="s_category" /></td>
 											<td><input type="text" class="form-control"
-												placeholder="Author" name="srch-term" id="srch-term" /></td>
+												placeholder="Author" name="s_author" id="s_author" /></td>
 											<td><input type="text" class="form-control"
-												placeholder="Book name" name="srch-term" id="srch-term" /></td>
+												placeholder="Book name" name="s_name" id="s_name" /></td>
 											<td>
 												<div class="input-group-btn">
-													<button class="btn btn-primary pull-right" type="submit">Search
+													<button class="btn btn-primary pull-right" type="button"
+														onclick="listBySearch(s_name,s_author,s_category);">Search
 													</button>
 
 												</div>
@@ -191,12 +192,13 @@ mylib-figcaption {
 
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h4>Login</h4>
+											<h4><%=user.getName()%> - Books for you!!!
+											</h4>
 										</div>
 										<div class="panel-body">
+											<div id="book_catalogue" name="book_catalogue"
+												class="mylib-wrapper" />
 
-
-											<hr>
 										</div>
 									</div>
 
@@ -226,7 +228,81 @@ mylib-figcaption {
 	</div>
 
 	<script>
+		var base_url = "/elibrary";
 		
+		(function() {
+			var fav_category = '<%=user.getFavoruiteCategory1()%>'+'\') or category=(\''+'<%=user.getFavoruiteCategory2()%>';
+			var booksAPI = "/elibrary/ws/book/listBooks";
+			alert(fav_category);
+			$
+					.getJSON(booksAPI, {
+						jtStartIndex : "0",
+						jtPageSize : "20",
+						category : fav_category,
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								for ( var i = 0; i < data.length; i++) {
+
+									htmlCode = htmlCode
+											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url + '/' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode + '<mylib-figcaption>'
+											+ data[i].name
+											+ '</mylib-figcaption> ';
+									htmlCode = htmlCode
+											+ '</mylib-figure> </div>';
+								}
+								var divs = document
+										.getElementsByName("book_catalogue");
+								divs[0].innerHTML = "";
+								//alert(htmlCode);
+								divs[0].innerHTML = htmlCode;
+
+							});
+		})();
+
+		function listBySearch(s_name, s_author, s_category) {
+			var name = document.getElementById("s_name").value;
+			var author = document.getElementById("s_author").value;
+			var category = document.getElementById("s_category").value;
+			var booksAPI = "/elibrary/ws/book/listBooks";
+			$
+					.getJSON(booksAPI, {
+						jtStartIndex : "0",
+						jtPageSize : "20",
+						name : name,
+						author : author,
+						category : category,
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								for ( var i = 0; i < data.length; i++) {
+
+									htmlCode = htmlCode
+											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url +'/'+ data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode + '<mylib-figcaption>'
+											+ data[i].name
+											+ '</mylib-figcaption> ';
+									htmlCode = htmlCode
+											+ '</mylib-figure> </div>';
+								}
+								var divs = document
+										.getElementsByName("book_catalogue");
+								divs[0].innerHTML = "";
+								//alert(htmlCode);
+								divs[0].innerHTML = htmlCode;
+
+							});
+		};
+		
+		 /* function getBookDetails(){
+			var booksAPI="/elibaray/ws/book/getBook" 
+			
+		}; */
 	</script>
 </body>
 </html>
