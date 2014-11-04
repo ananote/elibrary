@@ -208,7 +208,8 @@ mylib-figcaption {
 									htmlCode = htmlCode
 											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url + '/' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
 									htmlCode = htmlCode + '<mylib-figcaption>'
-											+ data[i].name
+									+'<li class="active"><a href="javaScript:showBook(\''		
+									+ data[i].bookId + '\');"> '+ data[i].name + '</a></li>'
 											+ '</mylib-figcaption> ';
 									htmlCode = htmlCode
 											+ '</mylib-figure> </div>';
@@ -315,6 +316,40 @@ mylib-figcaption {
 
 							});
 		};
+		
+		function showBook(bookId) {
+			var booksAPI = "/elibrary/ws/book/getBook";
+			/* 	var name = document.getElementById("s_name").value;
+			var author = document.getElementById("s_author").value;
+			var category = document.getElementById("s_category").value;  */
+			alert (bookId);
+			 $
+					.getJSON(booksAPI, {
+						bookId : bookId,
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								for ( var i = 0; i < data.length; i++) {
+
+									htmlCode = htmlCode
+											+ '<div class="show-image"><img src="' + base_url +'/'+ data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode + '<mylib-figcaption>'
+											+ data[i].name
+											+ '</mylib-figcaption> ';
+									htmlCode = htmlCode
+											+ '</mylib-figure> </div>';
+								}
+								var divs = document
+										.getElementsByName("book_catalogue");
+								divs[0].innerHTML = "";
+								//alert(htmlCode);
+								divs[0].innerHTML = htmlCode;
+
+							}); 
+		};
+		
 	</script>
 </body>
 </html>

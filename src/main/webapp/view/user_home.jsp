@@ -233,7 +233,6 @@ mylib-figcaption {
 		(function() {
 			var fav_category = '<%=user.getFavoruiteCategory1()%>'+'\') or category=(\''+'<%=user.getFavoruiteCategory2()%>';
 			var booksAPI = "/elibrary/ws/book/listBooks";
-			alert(fav_category);
 			$
 					.getJSON(booksAPI, {
 						jtStartIndex : "0",
@@ -252,12 +251,14 @@ mylib-figcaption {
 											+ data[i].name
 											+ '</mylib-figcaption> ';
 									htmlCode = htmlCode
-											+ '</mylib-figure> </div>';
+											+ '</mylib-figure> ';
+									htmlCode= htmlCode + '<br>'; 		
+									htmlCode= htmlCode 
+									+ '<input type="button" onclick="Function()" float="center">Interested</input> </div>';
 								}
 								var divs = document
 										.getElementsByName("book_catalogue");
 								divs[0].innerHTML = "";
-								//alert(htmlCode);
 								divs[0].innerHTML = htmlCode;
 
 							});
