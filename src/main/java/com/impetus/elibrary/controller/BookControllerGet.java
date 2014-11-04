@@ -38,9 +38,9 @@ public class BookControllerGet {
 	@RequestMapping(value = "/listBooks", method = RequestMethod.GET)
 	public @ResponseBody List<Book> getAllBooks(
 			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, 
-			@RequestParam(required=false) String name, @RequestParam(required=false) String author,
-			@RequestParam(required=false) String category) {
-		logger.info("Start getAllBooks. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", name=" + name + "," +
+			@RequestParam(defaultValue="") String name, @RequestParam(defaultValue="") String author,
+			@RequestParam(defaultValue="") String category) {
+		logger.info("Start getAllBooks. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", name=" + name +
 				", author=" + author + ", category =" + category);
 		
 		List<Book> list = new ArrayList<Book>();
@@ -64,7 +64,7 @@ public class BookControllerGet {
 	@RequestMapping(value = "/listAllAuthors", method = RequestMethod.GET)
 	public String getAllAuthors(
 			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting) {
-		logger.info("Start getAllBooks. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", jtSorting=" + jtSorting);
+		logger.info("Start getAllAuthors. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", jtSorting=" + jtSorting);
 		JSONListResponse<Book> response = null;
 		try {
 			Field field = null;

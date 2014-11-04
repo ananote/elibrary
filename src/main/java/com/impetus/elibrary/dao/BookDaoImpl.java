@@ -72,13 +72,13 @@ public class BookDaoImpl  implements BookDao {
 		Session session = sessionFactory.openSession();
 		
 		String queryStr="from Book where 1=1 ";
-		if ((criteria.getCategory()!=null) && (criteria.getCategory()!="")){
+		if (StringUtils.hasText(criteria.getCategory())){
 			queryStr=queryStr+" and category='"+criteria.getCategory()+"' ";
 		}
-		if ((criteria.getAuthor()!=null) && (criteria.getAuthor()!="")){
+		if (StringUtils.hasText(criteria.getAuthor())){
 			queryStr=queryStr+" and author='"+criteria.getAuthor()+"' ";
 		}
-		if ((criteria.getName()!=null) && (criteria.getName()!="")){
+		if (StringUtils.hasText(criteria.getName())){
 			queryStr=queryStr+" and name='"+criteria.getName()+"%' ";
 		}
 		

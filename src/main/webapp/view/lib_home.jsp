@@ -120,28 +120,24 @@ mylib-figcaption {
 					<div class="padding">
 
 						<div class="full">
-							<form class="form">
+							<!--form class="form" onSubmit="JavaScript:listBySearch()"-->
 								<div class="list-inline"
 									style="max-width: 100%; text-align: right; float: left">
 									<table>
 										<tr>
 											<td><input type="text" class="form-control"
-												placeholder="Category" name="srch-term" id="srch-term" /></td>
+												placeholder="Category" name="s_category" id="s_category" /></td>
 											<td><input type="text" class="form-control"
-												placeholder="Author" name="srch-term" id="srch-term" /></td>
+												placeholder="Author" name="s_author" id="s_author" /></td>
 											<td><input type="text" class="form-control"
-												placeholder="Book name" name="srch-term" id="srch-term" /></td>
+												placeholder="Book name" name="s_name" id="s_name" /></td>
 											<td>
-												<div class="input-group-btn">
-													<button class="btn btn-primary pull-right" type="submit">Search
-													</button>
-
-												</div>
+												<a  href="javaScript:listBySearch();">Search</a>
 											</td>
 										</tr>
 									</table>
 								</div>
-							</form>
+							<!--/form-->
 						</div>
 
 						<div class="full col-sm-9">
@@ -257,6 +253,39 @@ mylib-figcaption {
 						jtStartIndex : "0",
 						jtPageSize : "20",
 						author : author,
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								for ( var i = 0; i < data.length; i++) {
+
+									htmlCode = htmlCode
+											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url +'/'+ data[i].imageUrl + '" alt="'+data[i].name+'" />';
+									htmlCode = htmlCode + '<mylib-figcaption>'
+											+ data[i].name
+											+ '</mylib-figcaption> ';
+									htmlCode = htmlCode
+											+ '</mylib-figure> </div>';
+								}
+								var divs = document
+										.getElementsByName("book_catalogue");
+								divs[0].innerHTML = "";
+								//alert(htmlCode);
+								divs[0].innerHTML = htmlCode;
+
+							});
+		};
+		
+		function listBySearch(name) {
+			var name = document.getElementsById("s_name").value;
+			alert(name + s_name);
+			var booksAPI = "/elibrary/ws/book/listBooks";
+			$
+					.getJSON(booksAPI, {
+						jtStartIndex : "0",
+						jtPageSize : "20",
+						name : s_name,
 						format : "json"
 					})
 					.done(
