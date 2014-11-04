@@ -73,13 +73,13 @@ public class BookDaoImpl  implements BookDao {
 		
 		String queryStr="from Book where 1=1 ";
 		if (StringUtils.hasText(criteria.getCategory())){
-			queryStr=queryStr+" and category='"+criteria.getCategory()+"' ";
+			queryStr=queryStr+" and lcase(category)=lcase('"+criteria.getCategory()+"') ";
 		}
 		if (StringUtils.hasText(criteria.getAuthor())){
-			queryStr=queryStr+" and author='"+criteria.getAuthor()+"' ";
+			queryStr=queryStr+" and lcase(author) like lcase('%"+criteria.getAuthor()+"%') ";
 		}
 		if (StringUtils.hasText(criteria.getName())){
-			queryStr=queryStr+" and name='"+criteria.getName()+"%' ";
+			queryStr=queryStr+" and lcase(name)like lcase('%"+criteria.getName()+"%') ";
 		}
 		
 		Query query = session.createQuery(queryStr);

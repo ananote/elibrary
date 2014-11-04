@@ -120,7 +120,7 @@ mylib-figcaption {
 					<div class="padding">
 
 						<div class="full">
-							<!--form class="form" onSubmit="JavaScript:listBySearch()"-->
+							<form class="form">
 								<div class="list-inline"
 									style="max-width: 100%; text-align: right; float: left">
 									<table>
@@ -132,12 +132,15 @@ mylib-figcaption {
 											<td><input type="text" class="form-control"
 												placeholder="Book name" name="s_name" id="s_name" /></td>
 											<td>
-												<a  href="javaScript:listBySearch();">Search</a>
+											<div class="input-group-btn">
+												<button class="btn btn-primary pull-right" type="button" onclick="listBySearch(s_name,s_author,s_category);">Search
+													</button>
+													</div>
 											</td>
 										</tr>
 									</table>
 								</div>
-							<!--/form-->
+							</form>
 						</div>
 
 						<div class="full col-sm-9">
@@ -277,15 +280,18 @@ mylib-figcaption {
 							});
 		};
 		
-		function listBySearch(name) {
-			var name = document.getElementsById("s_name").value;
-			alert(name + s_name);
+		function listBySearch(s_name,s_author,s_category) {
+			var name = document.getElementById("s_name").value;
+			var author = document.getElementById("s_author").value;
+			var category = document.getElementById("s_category").value; 
 			var booksAPI = "/elibrary/ws/book/listBooks";
 			$
 					.getJSON(booksAPI, {
 						jtStartIndex : "0",
 						jtPageSize : "20",
-						name : s_name,
+						name : name,
+						author: author,
+						category : category,
 						format : "json"
 					})
 					.done(
