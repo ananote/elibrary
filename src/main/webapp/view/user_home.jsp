@@ -190,17 +190,14 @@ mylib-figcaption {
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4><%=user.getName()%>
-												- Books for you!!!
+												- Explore your Books!!!
 											</h4>
 										</div>
 										<div class="panel-body">
 											<div id="book_catalogue" name="book_catalogue"
 												class="mylib-wrapper" />
-
 										</div>
 									</div>
-
-
 								</div>
 							</div>
 							<!--/row-->
@@ -229,7 +226,8 @@ mylib-figcaption {
 		var base_url = "/elibrary";
 		
 		(function() {
-			var fav_category = '<%=user.getFavoruiteCategory1()%>'+'\') or category=(\''+'<%=user.getFavoruiteCategory2()%>';
+			var fav_category = '<%=user.getFavoruiteCategory1()%>'+'\') or category=(\''+'<%=user.getFavoruiteCategory2()%>
+		';
 			var booksAPI = "/elibrary/ws/book/listBooks";
 			$
 					.getJSON(booksAPI, {
@@ -293,7 +291,6 @@ mylib-figcaption {
 								divs[0].innerHTML = "";
 								//alert(htmlCode);
 								divs[0].innerHTML = htmlCode;
-
 							});
 		};
 
@@ -329,11 +326,12 @@ mylib-figcaption {
 										+ data.Language + '</li> ';
 								htmlCode = htmlCode + '<br>';
 								htmlCode = htmlCode
-										+ '<a href="#"><b><font color="Green">Interested</font></b></a>';
+										+ '<a href="javaScript:bookRequestOption('
+										+ data.bookId
+										+ ')"><b><font color="Green">Interested</font></b></a>';
 								htmlCode = htmlCode
 										+ '<br><hr> <a href="/elibrary/view/user_home.jsp"><b><font color=blue>Back Home</font></b></a>';
 								htmlCode = htmlCode + ' </div>';
-
 								var divs = document
 										.getElementsByName("book_catalogue");
 								divs[0].innerHTML = "";
@@ -341,10 +339,35 @@ mylib-figcaption {
 
 							});
 		};
-		/* function getBookDetails(){
-			var booksAPI="/elibaray/ws/book/getBook" 
-			
-		}; */
+
+		function bookRequestOption(bookId) {
+
+			var shelf = 'Shelfed';
+			var request = 'Requested';
+			var htmlCode = "";
+			htmlCode = htmlCode
+					+ '<a href="javascript:makeBookRequest(\''
+					+ shelf
+					+ '\',\''
+					+ bookId
+					+ '\')"><b><font color="green">Book to Shelf</font></b></a>';
+			htmlCode = htmlCode + '<br>';
+			htmlCode = htmlCode
+					+ '<a href="javascript:makeBookRequest(\''
+					+ request
+					+ '\',\''
+					+ bookId
+					+ '\')"><b><font color="green">Book to Request</font></b></a>';
+			var divs = document.getElementsByName("book_catalogue");
+			divs[0].innerHTML = "";
+			divs[0].innerHTML = htmlCode;
+			alert(htmlCode);
+		};
+
+		function makeBookRequest(status, bookid) {
+			var userid = <%=user.getUserId()%>;
+			alert(bookid + ' ' + status + ' ' + userid);
+		};
 	</script>
 </body>
 </html>
