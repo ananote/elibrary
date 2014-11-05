@@ -2,6 +2,7 @@ package com.impetus.elibrary.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
@@ -13,14 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.impetus.elibrary.controller.BookController;
 import com.impetus.elibrary.model.Book;
 
 @Service
-public class BookDaoImpl  implements BookDao {
+public class BookDaoImpl implements BookDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
-    
+
+	private static final Logger logger = Logger.getLogger(BookController.class
+			.getName());
+
 	@Override
 	@Transactional
 	public int saveOrUpdate(Book book) {
@@ -35,25 +40,23 @@ public class BookDaoImpl  implements BookDao {
 
 	@Override
 	public List<Book> list() {
-		
-		
+
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<Book> bookList = session.createQuery("from Book").list();
 		session.close();
 		return bookList;
 	}
-	
+
 	@Override
-	public List<Book> list(String filterColumnName, 
-			String filterColumnValue) {
-		
+	public List<Book> list(String filterColumnName, String filterColumnValue) {
+
 		Session session = sessionFactory.openSession();
 		StringBuffer sbQuery = new StringBuffer();
 		sbQuery.append("from Book");
-		if("*".equals(filterColumnValue)
+		if ("*".equals(filterColumnValue)
 				|| StringUtils.isEmpty(filterColumnName)
-				|| StringUtils.isEmpty(filterColumnValue)){
+				|| StringUtils.isEmpty(filterColumnValue)) {
 		} else {
 			sbQuery.append(" where ");
 			sbQuery.append(filterColumnName);
@@ -70,18 +73,21 @@ public class BookDaoImpl  implements BookDao {
 	@Override
 	public List<Book> list(Book criteria) {
 		Session session = sessionFactory.openSession();
-		
-		String queryStr="from Book where 1=1 ";
-		if (StringUtils.hasText(criteria.getCategory())){
-			queryStr=queryStr+" and lcase(category)=lcase('"+criteria.getCategory()+"') ";
+
+		String queryStr = "from Book where 1=1 ";
+		if (StringUtils.hasText(criteria.getCategory())) {
+			queryStr = queryStr + " and lcase(category)=lcase('"
+					+ criteria.getCategory() + "') ";
 		}
-		if (StringUtils.hasText(criteria.getAuthor())){
-			queryStr=queryStr+" and lcase(author) like lcase('%"+criteria.getAuthor()+"%') ";
+		if (StringUtils.hasText(criteria.getAuthor())) {
+			queryStr = queryStr + " and lcase(author) like lcase('%"
+					+ criteria.getAuthor() + "%') ";
 		}
-		if (StringUtils.hasText(criteria.getName())){
-			queryStr=queryStr+" and lcase(name)like lcase('%"+criteria.getName()+"%') ";
+		if (StringUtils.hasText(criteria.getName())) {
+			queryStr = queryStr + " and lcase(name)like lcase('%"
+					+ criteria.getName() + "%') ";
 		}
-		
+
 		Query query = session.createQuery(queryStr);
 		@SuppressWarnings("unchecked")
 		List<Book> bookList = query.list();
@@ -91,9 +97,15 @@ public class BookDaoImpl  implements BookDao {
 
 	@Override
 	public Book getById(int id) {
-		Session session = sessionFactory.openSession();
-		Book book = (Book) session.load(Book.class, id);
-		session.close();
+		Book book = null;
+		try {
+			Session session = sessionFactory.openSession();
+			book = (Book) session.load(Book.class, id);
+			book.setBookRequests(null);
+			session.close();
+		} catch (Exception ex) {
+			logger.warning("Error while get book by id " + ex.getMessage());
+		}
 		return book;
 	}
 
@@ -108,11 +120,11 @@ public class BookDaoImpl  implements BookDao {
 		session.close();
 		return (Integer) ids;
 	}
-	
+
 	@Override
-	public List<String> getAllAuthors(){
+	public List<String> getAllAuthors() {
 		Session session = sessionFactory.openSession();
-		String queryStr="select distinct author from Book where (author is not null and author!='') order by author";
+		String queryStr = "select distinct author from Book where (author is not null and author!='') order by author";
 		Query query = session.createQuery(queryStr);
 		@SuppressWarnings("unchecked")
 		List<String> authorList = query.list();

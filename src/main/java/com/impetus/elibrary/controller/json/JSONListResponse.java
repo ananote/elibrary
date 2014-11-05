@@ -4,6 +4,11 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * Created wrapper class to match JTable standard responses
+ * 
+ * @author amit
+ */
 public class JSONListResponse<T> {
 
 	private String Result;

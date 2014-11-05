@@ -73,7 +73,7 @@ public class BookController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/getBook", method = RequestMethod.GET)
+	@RequestMapping(value = "/getBook/{id}", method = RequestMethod.GET)
 	public @ResponseBody Book getBook(@PathVariable("id") int bookId) {
 
 		logger.info("Start getBook. ID=" + bookId);
