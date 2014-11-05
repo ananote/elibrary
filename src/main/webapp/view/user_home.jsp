@@ -189,7 +189,8 @@ mylib-figcaption {
 
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h4><%=user.getName()%> - Books for you!!!
+											<h4><%=user.getName()%>
+												- Books for you!!!
 											</h4>
 										</div>
 										<div class="panel-body">
@@ -241,17 +242,16 @@ mylib-figcaption {
 							function(data) {
 								var htmlCode = "";
 								for ( var i = 0; i < data.length; i++) {
-
 									htmlCode = htmlCode
 											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url + '/' + data[i].imageUrl + '" alt="'+data[i].name+'" />';
-									htmlCode = htmlCode + '<mylib-figcaption>'
-											+ data[i].name
-											+ '</mylib-figcaption> ';
 									htmlCode = htmlCode
-											+ '</mylib-figure> ';
-									htmlCode= htmlCode + '<br>'; 		
-									htmlCode= htmlCode 
-									+ '<input type="button" onclick="Function()" float="center">Interested</input> </div>';
+											+ '<mylib-figcaption>'
+											+ '<li class="active"><a href="javaScript:showBook(\''
+											+ data[i].bookId + '\');"> '
+											+ data[i].name + '</a></li>'
+											+ '</mylib-figcaption> ';
+									htmlCode = htmlCode + '</mylib-figure> ';
+									htmlCode = htmlCode + '</div>';
 								}
 								var divs = document
 										.getElementsByName("book_catalogue");
@@ -296,8 +296,52 @@ mylib-figcaption {
 
 							});
 		};
-		
-		 /* function getBookDetails(){
+
+		function showBook(bookId) {
+			var booksAPI = "/elibrary/ws/book/getBook/" + bookId;
+
+			$
+					.getJSON(booksAPI, {
+						format : "json"
+					})
+					.done(
+							function(data) {
+								var htmlCode = "";
+								htmlCode = htmlCode
+										+ '<div class="show-image"><img src="'
+										+ base_url + '/' + data.imageUrl + '" alt="'
+										+ data.name + '" />';
+								htmlCode = htmlCode + '<li> Title : '
+										+ data.name + '</li> ';
+								htmlCode = htmlCode + '<li> Author : '
+										+ data.author + '</li> ';
+								htmlCode = htmlCode + '<li> Category : '
+										+ data.category + '</li> ';
+								htmlCode = htmlCode + '<li> Description : '
+										+ data.description + '</li> ';
+								htmlCode = htmlCode + '<li> Publication : '
+										+ data.publication + '</li> ';
+								htmlCode = htmlCode + '<li> ISBN : '
+										+ data.ISBN + '</li> ';
+								htmlCode = htmlCode + '<li> Status : '
+										+ data.status + '</li> ';
+								htmlCode = htmlCode + '<li> Language : '
+										+ data.Language + '</li> ';
+								htmlCode = htmlCode + '<br>';
+								htmlCode = htmlCode
+										+ '<a href="#"><b><font color="Green">Interested</font></b></a>';
+								htmlCode = htmlCode
+										+ '<br><hr> <a href="/elibrary/view/user_home.jsp"><b><font color=blue>Back Home</font></b></a>';
+								htmlCode = htmlCode + ' </div>';
+
+								var divs = document
+										.getElementsByName("book_catalogue");
+								divs[0].innerHTML = "";
+								divs[0].innerHTML = htmlCode;
+
+							});
+		};
+		/* function getBookDetails(){
 			var booksAPI="/elibaray/ws/book/getBook" 
 			
 		}; */
