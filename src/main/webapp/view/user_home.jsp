@@ -111,10 +111,7 @@ mylib-figcaption {
 							<a href="#">My Shelf</a>
 						</h5>
 						<h5>
-							<a href="#">Book Issued</a>
-						</h5>
-						<h5>
-							<a href="#">Request Book</a>
+							<a href="#">Book Requests</a>
 						</h5>
 						<h5>
 							<a>History</a>
