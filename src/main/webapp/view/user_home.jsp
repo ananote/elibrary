@@ -283,7 +283,9 @@ mylib-figcaption {
 									htmlCode = htmlCode
 											+ '<div class="mylib-entry"> <mylib-figure><img src="' + base_url +'/'+ data[i].imageUrl + '" alt="'+data[i].name+'" />';
 									htmlCode = htmlCode + '<mylib-figcaption>'
-											+ data[i].name
+												+ '<li class="active"><a href="javaScript:showBook(\''
+												+ data[i].bookId + '\');"> '
+												+ data[i].name + '</a></li>'
 											+ '</mylib-figcaption> ';
 									htmlCode = htmlCode
 											+ '</mylib-figure> </div>';

@@ -180,7 +180,7 @@ public class BookRequestController {
 			BookRequest newBookRequest = bookRequestService.getById(id);
 			response =  "Book Request Successful";
 		} catch (Exception ex) {
-			response = "Book Request Failed, may be selected";
+			response = "Book Request Failed. Please check your shelf, may be selected";
 			logger.warning(response+' '+ex.getMessage());
 		}
 
