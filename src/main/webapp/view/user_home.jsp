@@ -305,6 +305,8 @@ mylib-figcaption {
 					})
 					.done(
 							function(data) {
+								var shelf = 'Shelfed';
+								var request = 'Requested';
 								var htmlCode = "";
 								htmlCode = htmlCode
 										+ '<div class="show-image"><img src="'
@@ -328,9 +330,18 @@ mylib-figcaption {
 										+ data.Language + '</li> ';
 								htmlCode = htmlCode + '<br>';
 								htmlCode = htmlCode
-										+ '<a href="javaScript:bookRequestOption('
-										+ data.bookId
-										+ ')"><b><font color="Green">Interested</font></b></a>';
+								+ '<a href="javascript:makeBookRequest(\''
+								+ shelf
+								+ '\',\''
+								+ bookId
+								+ '\')"><b><font color="green">Book to Shelf</font></b></a>';
+						htmlCode = htmlCode + '<br>';
+						htmlCode = htmlCode
+								+ '<a href="javascript:makeBookRequest(\''
+								+ request
+								+ '\',\''
+								+ bookId
+								+ '\')"><b><font color="green">Book to Request</font></b></a>';
 								htmlCode = htmlCode
 										+ '<br><hr> <a href="/elibrary/view/user_home.jsp"><b><font color=blue>Back Home</font></b></a>';
 								htmlCode = htmlCode + ' </div>';
@@ -340,29 +351,6 @@ mylib-figcaption {
 								divs[0].innerHTML = htmlCode;
 
 							});
-		};
-
-		function bookRequestOption(bookId) {
-
-			var shelf = 'Shelfed';
-			var request = 'Requested';
-			var htmlCode = "";
-			htmlCode = htmlCode
-					+ '<a href="javascript:makeBookRequest(\''
-					+ shelf
-					+ '\',\''
-					+ bookId
-					+ '\')"><b><font color="green">Book to Shelf</font></b></a>';
-			htmlCode = htmlCode + '<br>';
-			htmlCode = htmlCode
-					+ '<a href="javascript:makeBookRequest(\''
-					+ request
-					+ '\',\''
-					+ bookId
-					+ '\')"><b><font color="green">Book to Request</font></b></a>';
-			var divs = document.getElementsByName("book_catalogue");
-			divs[0].innerHTML = "";
-			divs[0].innerHTML = htmlCode;
 		};
 
 		function makeBookRequest(status, bookid) {
@@ -398,6 +386,7 @@ mylib-figcaption {
 				}
 			});
 		};
+		
 	</script>
 </body>
 </html>
