@@ -291,7 +291,6 @@ mylib-figcaption {
 								var divs = document
 										.getElementsByName("book_catalogue");
 								divs[0].innerHTML = "";
-								//alert(htmlCode);
 								divs[0].innerHTML = htmlCode;
 							});
 		};
@@ -363,10 +362,11 @@ mylib-figcaption {
 				contentType : "application/json",
 				data : jsonDataStr,
 				success : function(result) {
-					alert(result);
 					var resultMsg = '#result';
 					var htmlCode = '<br><font color="Green">'+result+'</font>';
-					
+					htmlCode = htmlCode
+					+ '<br><hr> <a href="/elibrary/view/user_home.jsp"><b><font color=blue>Back Home</font></b></a>';
+								
 					var divs = document
 							.getElementsByName("status_panel");
 					divs[0].innerHTML = "";
@@ -379,6 +379,9 @@ mylib-figcaption {
 						"textStatus " + textStatus +
 						"errorThrown " + errorThrown +
 						'</font>';
+					htmlCode = htmlCode
+						+ '<br><hr> <a href="/elibrary/view/user_home.jsp"><b><font color=blue>Back Home</font></b></a>';
+				
 					var divs = document
 							.getElementsByName("status_panel");
 					divs[0].innerHTML = "";

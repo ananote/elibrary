@@ -91,9 +91,12 @@ return_request_date date ,
 return_date date ,
 cancel_date date ,
 days_book_issued smallint ,
+update_timestamp timestamp,
+admin_response smallint, 
 primary key(request_id), 
 constraint fk_bk_req_userid foreign key (user_id) references users (user_id),
-constraint fk_bk_req_bookid foreign key (book_id) references books (book_id)
+constraint fk_bk_req_bookid foreign key (book_id) references books (book_id), 
+constraint uk_bkReq_user_book unique key(user_id, book_id) 
 )engine=myisam auto_increment=6 default charset=latin1;
 
 
