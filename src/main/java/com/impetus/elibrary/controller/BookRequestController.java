@@ -1,6 +1,7 @@
 package com.impetus.elibrary.controller;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,8 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.impetus.elibrary.controller.json.JSONListResponse;
 import com.impetus.elibrary.controller.json.JSONResponse;
+import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.model.BookRequest;
+import com.impetus.elibrary.model.User;
 import com.impetus.elibrary.service.BookRequestService;
+import com.impetus.elibrary.service.BookService;
 
 @RestController
 @RequestMapping("/bookRequest/")
@@ -27,9 +31,12 @@ public class BookRequestController {
 
 	@Autowired
 	BookRequestService bookRequestService;
+	
+	@Autowired
+	BookService bookService;
 
-	private static final Logger logger = Logger.getLogger(BookRequestController.class
-			.getName());
+	private static final Logger logger = Logger
+			.getLogger(BookRequestController.class.getName());
 
 	@RequestMapping("/crud")
 	public ModelAndView getView(@ModelAttribute BookRequest bookRequest) {
@@ -37,40 +44,51 @@ public class BookRequestController {
 	}
 
 	@RequestMapping("/register")
-	public ModelAndView registerBookRequest(@ModelAttribute BookRequest bookRequest) {
+	public ModelAndView registerBookRequest(
+			@ModelAttribute BookRequest bookRequest) {
 		bookRequestService.save(bookRequest);
 		return new ModelAndView("login");
 	}
 
 	@RequestMapping(value = "/listBookRequests", method = RequestMethod.POST)
 	public @ResponseBody JSONListResponse<BookRequest> getAllBookRequests(
-			@RequestParam int jtStartIndex, @RequestParam int jtPageSize, @RequestParam(required=false) String jtSorting,
-			@RequestParam String filterColumnName, @RequestParam String filterColumnValue) {
+			@RequestParam int jtStartIndex, @RequestParam int jtPageSize,
+			@RequestParam(required = false) String jtSorting,
+			@RequestParam String filterColumnName,
+			@RequestParam String filterColumnValue) {
 
-		logger.info("Start getAllBookRequests. jtStartIndex=" + jtStartIndex + ", jtPageSize=" + jtPageSize + ", jtSorting=" + jtSorting);
+		logger.info("Start getAllBookRequests. jtStartIndex=" + jtStartIndex
+				+ ", jtPageSize=" + jtPageSize + ", jtSorting=" + jtSorting);
 		JSONListResponse<BookRequest> response = null;
 		try {
 			Field field = null;
 			boolean asc = false;
-			if(! StringUtils.isEmpty(jtSorting)){
-				
-				field = BookRequest.class.getField(jtSorting.substring(0, jtSorting.indexOf(" ")));
-				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
+			if (!StringUtils.isEmpty(jtSorting)) {
+
+				field = BookRequest.class.getField(jtSorting.substring(0,
+						jtSorting.indexOf(" ")));
+				asc = jtSorting.indexOf("ASC") != 0 ? true : false;
 			}
-			List<BookRequest> list = bookRequestService.list(jtStartIndex, jtPageSize, filterColumnName, filterColumnValue, field, asc);
-			/*for (BookRequest bookRequest : list) {
-				bookRequest.setBookRequests(null);
-				bookRequest.setBookRequestSubscriptions(null);
-			}*/
-			response = new JSONListResponse<BookRequest>("OK", list, list.size());
+			List<BookRequest> list = bookRequestService
+					.list(jtStartIndex, jtPageSize, filterColumnName,
+							filterColumnValue, field, asc);
+			/*
+			 * for (BookRequest bookRequest : list) {
+			 * bookRequest.setBookRequests(null);
+			 * bookRequest.setBookRequestSubscriptions(null); }
+			 */
+			response = new JSONListResponse<BookRequest>("OK", list,
+					list.size());
 		} catch (Exception ex) {
-			response = new JSONListResponse<BookRequest>("ERROR", ex.getMessage());
+			response = new JSONListResponse<BookRequest>("ERROR",
+					ex.getMessage());
 		}
 		return response;
 	}
 
 	@RequestMapping(value = "/getBookRequest", method = RequestMethod.GET)
-	public @ResponseBody BookRequest getBookRequest(@PathVariable("id") int bookRequestId) {
+	public @ResponseBody BookRequest getBookRequest(
+			@PathVariable("id") int bookRequestId) {
 
 		logger.info("Start getBookRequest. ID=" + bookRequestId);
 		return bookRequestService.getById(bookRequestId);
@@ -84,20 +102,22 @@ public class BookRequestController {
 		JSONResponse<BookRequest> response = null;
 		if (result.hasErrors()) {
 			response = new JSONResponse<BookRequest>("ERROR", "Form invalid");
-		} {
+		}
+		{
 			try {
-				//bookRequest.setJoinDate(new Date());
+				// bookRequest.setJoinDate(new Date());
 				int id = bookRequestService.save(bookRequest);
 				BookRequest newBookRequest = bookRequestService.getById(id);
 				response = new JSONResponse<BookRequest>("OK", newBookRequest);
 			} catch (Exception ex) {
-				response = new JSONResponse<BookRequest>("ERROR", ex.getMessage());
+				response = new JSONResponse<BookRequest>("ERROR",
+						ex.getMessage());
 			}
 
 		}
 		return response;
 	}
-	
+
 	@RequestMapping(value = "/updateBookRequest", method = RequestMethod.POST)
 	public @ResponseBody JSONResponse<BookRequest> updateBookRequest(
 			@ModelAttribute BookRequest bookRequest, BindingResult result) {
@@ -106,13 +126,15 @@ public class BookRequestController {
 		JSONResponse<BookRequest> response = null;
 		if (result.hasErrors()) {
 			response = new JSONResponse<BookRequest>("ERROR", "Form invalid");
-		} {
+		}
+		{
 			try {
 				int id = bookRequestService.save(bookRequest);
 				BookRequest newBookRequest = bookRequestService.getById(id);
 				response = new JSONResponse<BookRequest>("OK", newBookRequest);
 			} catch (Exception ex) {
-				response = new JSONResponse<BookRequest>("ERROR", ex.getMessage());
+				response = new JSONResponse<BookRequest>("ERROR",
+						ex.getMessage());
 			}
 
 		}
@@ -120,7 +142,8 @@ public class BookRequestController {
 	}
 
 	@RequestMapping(value = "/deleteBookRequest", method = RequestMethod.POST)
-	public @ResponseBody JSONResponse<BookRequest> deleteBookRequest(@RequestParam int bookRequestId) {
+	public @ResponseBody JSONResponse<BookRequest> deleteBookRequest(
+			@RequestParam int bookRequestId) {
 
 		logger.info("Start deleteBookRequest.");
 		JSONResponse<BookRequest> response = null;
@@ -130,6 +153,37 @@ public class BookRequestController {
 		} catch (Exception ex) {
 			response = new JSONResponse<BookRequest>("ERROR", ex.getMessage());
 		}
+		return response;
+	}
+
+	@RequestMapping(value = "/makeBookRequest", method = RequestMethod.GET)
+	public String makeBookRequest(@RequestParam int bookId,
+			@RequestParam int userId, @RequestParam String status) {
+
+		logger.info("Start makeBookRequest.");
+		String response = new String();
+		try {
+			BookRequest br = new BookRequest();
+			Book book = bookService.getById(bookId);
+			br.setBook(book);
+			br.setBookName(book.getName());
+			if (status=="Requested"){
+				Date date = new Date();
+				br.setRequestDate(date);
+			}
+			br.setStatus(status);
+			User user = new User();
+			user.setUserId(userId);
+			br.setUser(user);
+			// bookRequest.setJoinDate(new Date());
+			int id = bookRequestService.save(br);
+			BookRequest newBookRequest = bookRequestService.getById(id);
+			response =  "Book Request Successful";
+		} catch (Exception ex) {
+			response = "Book Request Failed";
+			logger.warning(response+' '+ex.getMessage());
+		}
+
 		return response;
 	}
 }

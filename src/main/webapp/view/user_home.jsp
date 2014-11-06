@@ -194,7 +194,9 @@ mylib-figcaption {
 											</h4>
 										</div>
 										<div class="panel-body">
-											<div id="book_catalogue" name="book_catalogue"
+											<div id="status_panel" name="status_panel"
+												class="mylib-wrapper" />
+												<div id="book_catalogue" name="book_catalogue"
 												class="mylib-wrapper" />
 										</div>
 									</div>
@@ -226,8 +228,8 @@ mylib-figcaption {
 		var base_url = "/elibrary";
 		
 		(function() {
-			var fav_category = '<%=user.getFavoruiteCategory1()%>'+'\') or category=(\''+'<%=user.getFavoruiteCategory2()%>
-		';
+			var fav_category = 
+				'<%=user.getFavoruiteCategory1()%>'+'\') or category=(\''+'<%=user.getFavoruiteCategory2()%>';
 			var booksAPI = "/elibrary/ws/book/listBooks";
 			$
 					.getJSON(booksAPI, {
@@ -361,12 +363,40 @@ mylib-figcaption {
 			var divs = document.getElementsByName("book_catalogue");
 			divs[0].innerHTML = "";
 			divs[0].innerHTML = htmlCode;
-			alert(htmlCode);
 		};
 
 		function makeBookRequest(status, bookid) {
+			var bookRequestAPI = "/elibrary/ws/bookRequest/makeBookRequest";
 			var userid = <%=user.getUserId()%>;
-			alert(bookid + ' ' + status + ' ' + userid);
+			var jsonDataStr = 'bookId='+bookid+'&userId='+userid+'&status='+status;
+			$.ajax({
+				type : "GET",
+				url : bookRequestAPI,
+				contentType : "application/json",
+				data : jsonDataStr,
+				success : function(result) {
+					alert(result);
+					var resultMsg = '#result';
+					var htmlCode = '<br><font color="Green">'+result+'</font>';
+					
+					var divs = document
+							.getElementsByName("status_panel");
+					divs[0].innerHTML = "";
+					divs[0].innerHTML = htmlCode;
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					var htmlCode = '';
+					htmlCode = htmlCode + '<br><font color="Red">' +
+						"jqXHR statusCode" + jqXHR.statusCode() + 
+						"textStatus " + textStatus +
+						"errorThrown " + errorThrown +
+						'</font>';
+					var divs = document
+							.getElementsByName("status_panel");
+					divs[0].innerHTML = "";
+					divs[0].innerHTML = htmlCode;
+				}
+			});
 		};
 	</script>
 </body>
