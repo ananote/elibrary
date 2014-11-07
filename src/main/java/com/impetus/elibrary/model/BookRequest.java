@@ -59,12 +59,12 @@ public class BookRequest implements Serializable {
 	private String status;
 
 	//bi-directional many-to-one association to Book
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne//(fetch=FetchType.EAGER)
 	@JoinColumn(name="book_id")
 	private Book book;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne//(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 
