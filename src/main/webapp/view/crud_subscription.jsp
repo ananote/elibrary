@@ -42,6 +42,6 @@
 			}
 		});
 
-		$('#SubscriptionTableContainer').jtable('load');
+		//$('#SubscriptionTableContainer').jtable('load');
 	});
 </script>

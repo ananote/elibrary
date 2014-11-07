@@ -67,6 +67,6 @@
 											}
 										});
 
-						$('#UserSubscriptionTableContainer').jtable('load');
+						//$('#UserSubscriptionTableContainer').jtable('load');
 					});
 </script>

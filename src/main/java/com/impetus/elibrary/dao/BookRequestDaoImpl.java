@@ -63,6 +63,10 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 		}
 		@SuppressWarnings("unchecked")
 		List<BookRequest> bookRequestList = session.createQuery(sbQuery.toString()).list();
+		for(BookRequest br: bookRequestList){
+			session.load(br.getBook(), br.getBook().getBookId());
+			session.load(br.getUser(), br.getUser().getUserId());
+		}
 		session.close();
 		return bookRequestList;
 	}

@@ -72,11 +72,7 @@ public class BookRequestController {
 			List<BookRequest> list = bookRequestService
 					.list(jtStartIndex, jtPageSize, filterColumnName,
 							filterColumnValue, field, asc);
-			/*
-			 * for (BookRequest bookRequest : list) {
-			 * bookRequest.setBookRequests(null);
-			 * bookRequest.setBookRequestSubscriptions(null); }
-			 */
+			 
 			response = new JSONListResponse<BookRequest>("OK", list,
 					list.size());
 		} catch (Exception ex) {

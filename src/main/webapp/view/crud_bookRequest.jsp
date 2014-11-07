@@ -81,6 +81,6 @@
 			}
 		});
 
-		$('#BookRequestTableContainer').jtable('load');
+		//$('#BookRequestTableContainer').jtable('load');
 	});
 </script>

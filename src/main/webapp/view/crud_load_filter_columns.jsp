@@ -6,6 +6,7 @@
 		// Add * option to filterColumnName select box
 		switch (val) {
 		case 1:
+			// bookTableContainer
 			document.getElementById('filterColumnName').options.length = 0;
 			var BookVar = [ "All", "Name", "Author", "Publication", "Status" ];
 			var sel = document.getElementById('filterColumnName');
@@ -25,8 +26,8 @@
 			$('#LoadRecordsButton').click();
 			break;
 		case 2:
-			document.getElementById('filterColumnName').options.length = 0;
 			// UserTableContainer
+			document.getElementById('filterColumnName').options.length = 0;
 			var UserVar = [ "Name", "subscription_plan", "Email",
 					"favoruite_category1", "favoruite_category2" ];
 			var sel = document.getElementById('filterColumnName');
@@ -47,16 +48,89 @@
 			$('#LoadRecordsButton').click();
 			break;
 		case 3:
-			//$("#SubscriptionTableContainer").show();
+			//SubscriptionTableContainer
+			document.getElementById('filterColumnName').options.length = 0;
+			var UserVar = [ "plan","rate" ];
+			var sel = document.getElementById('filterColumnName');
+			for ( var i = 0; i < UserVar.length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = UserVar[i];
+				opt.value = UserVar[i];
+				sel.appendChild(opt);
+			}
+			$('#LoadRecordsButton').click(function(e) {
+				e.preventDefault();
+				$('#SubscriptionTableContainer').jtable('load', {
+					filterColumnName : $('#filterColumnName').val(),
+					filterColumnValue : $('#filterColumnValue').val()
+
+				});
+			});
+			$('#LoadRecordsButton').click();
 			break;
 		case 4:
-			//$("#UserSubscriptionTableContainer").show();
+			//UserSubscriptionTableContainer
+			document.getElementById('filterColumnName').options.length = 0;
+			var UserVar = [ "payment_by","received_by","cheque_of_bank" ];
+			var sel = document.getElementById('filterColumnName');
+			for ( var i = 0; i < UserVar.length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = UserVar[i];
+				opt.value = UserVar[i];
+				sel.appendChild(opt);
+			}
+			$('#LoadRecordsButton').click(function(e) {
+				e.preventDefault();
+				$('#UserSubscriptionTableContainer').jtable('load', {
+					filterColumnName : $('#filterColumnName').val(),
+					filterColumnValue : $('#filterColumnValue').val()
+
+				});
+			});
+			$('#LoadRecordsButton').click();
 			break;
 		case 5:
-			//$("#BookRequestTableContainer").show();
+			//BookRequestTableContainer
+			document.getElementById('filterColumnName').options.length = 0;
+			var UserVar = [ "status","book_name","admin_response" ];
+			var sel = document.getElementById('filterColumnName');
+			for ( var i = 0; i < UserVar.length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = UserVar[i];
+				opt.value = UserVar[i];
+				sel.appendChild(opt);
+			}
+			$('#LoadRecordsButton').click(function(e) {
+				e.preventDefault();
+				$('#BookRequestTableContainer').jtable('load', {
+					filterColumnName : $('#filterColumnName').val(),
+					filterColumnValue : $('#filterColumnValue').val()
+
+				});
+			});
+			$('#LoadRecordsButton').click();
 			break;
 		case 6:
-			//$("#UserEmailTableContainer").show();
+			//UserEmailTableContainer
+			document.getElementById('filterColumnName').options.length = 0;
+			var UserVar = [ "from_user_email","to_user_email","alert_type" ];
+			var sel = document.getElementById('filterColumnName');
+			for ( var i = 0; i < UserVar.length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = UserVar[i];
+				opt.value = UserVar[i];
+				sel.appendChild(opt);
+			}
+			$('#LoadRecordsButton').click(function(e) {
+				e.preventDefault();
+				$('#UserEmailTableContainer').jtable('load', {
+					filterColumnName : $('#filterColumnName').val(),
+					filterColumnValue : $('#filterColumnValue').val()
+
+				});
+			});
+			$('#LoadRecordsButton').click();
+
 			break;
 		case 7:
 			//$("#ReportTableContainer").show();

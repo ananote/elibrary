@@ -44,6 +44,6 @@
 			}
 		});
 
-		$('#UserEmailTableContainer').jtable('load');
+		//$('#UserEmailTableContainer').jtable('load');
 	});
 </script>
