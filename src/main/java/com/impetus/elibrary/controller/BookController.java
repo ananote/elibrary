@@ -1,9 +1,12 @@
 package com.impetus.elibrary.controller;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -62,10 +65,10 @@ public class BookController {
 				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
 			}
 			List<Book> list = bookService.list(jtStartIndex, jtPageSize, filterColumnName, filterColumnValue, field, asc);
-			for (Book book : list) {
-				book.setBookRequests(null);
+			//for (Book book : list) {
+				//book.setBookRequests(null);
 				//book.setBookSubscriptions(null);
-			}
+			//}
 			response = new JSONListResponse<Book>("OK", list, list.size());
 		} catch (Exception ex) {
 			response = new JSONListResponse<Book>("ERROR", ex.getMessage());
@@ -77,7 +80,8 @@ public class BookController {
 	public @ResponseBody Book getBook(@PathVariable("id") int bookId) {
 
 		logger.info("Start getBook. ID=" + bookId);
-		return bookService.getById(bookId);
+		Book book = bookService.getById(bookId);
+		return book;
 	}
 
 	@RequestMapping(value = "/createBook", method = RequestMethod.POST)

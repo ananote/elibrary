@@ -71,7 +71,7 @@ public class UserController {
 			}
 			List<User> list = userService.list(jtStartIndex, jtPageSize, filterColumnName, filterColumnValue, field, asc);
 			for (User user : list) {
-				user.setBookRequests(null);
+				//user.setBookRequests(null);
 				user.setUserSubscriptions(null);
 			}
 			response = new JSONListResponse<User>("OK", list, list.size());

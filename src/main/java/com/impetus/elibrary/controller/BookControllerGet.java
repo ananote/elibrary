@@ -51,9 +51,9 @@ public class BookControllerGet {
 			criteria.setCategory(category);
 			criteria.setName(name);
 			list = bookService.list(criteria);
-			for (Book book : list) {
-				book.setBookRequests(null);
-			}
+			//for (Book book : list) {
+				//book.setBookRequests(null);
+			//}
 		} catch (Exception ex) {
 			logger.warning(ex.getMessage());
 		}
@@ -75,10 +75,10 @@ public class BookControllerGet {
 				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
 			}
 			List<Book> list = bookService.list(jtStartIndex, jtPageSize, null, null, field, asc);
-			for (Book book : list) {
-				book.setBookRequests(null);
+			//for (Book book : list) {
+				//book.setBookRequests(null);
 				//book.setBookSubscriptions(null);
-			}
+			//}
 			response = new JSONListResponse<Book>("OK", list, list.size());
 		} catch (Exception ex) {
 			response = new JSONListResponse<Book>("ERROR", ex.getMessage());

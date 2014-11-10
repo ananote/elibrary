@@ -60,8 +60,8 @@ public class Book implements Serializable {
 	private String status;
 
 	//bi-directional many-to-one association to BookRequest
-	@OneToMany(mappedBy="book")
-	private Set<BookRequest> bookRequests;
+/*	@OneToMany(mappedBy="book")
+	private Set<BookRequest> bookRequests;*/
 	public Book() {
 	}
 
@@ -177,7 +177,7 @@ public class Book implements Serializable {
 		this.status = status;
 	}
 
-	public Set<BookRequest> getBookRequests() {
+/*	public Set<BookRequest> getBookRequests() {
 		return this.bookRequests;
 	}
 
@@ -197,6 +197,6 @@ public class Book implements Serializable {
 		bookRequest.setBook(null);
 
 		return bookRequest;
-	}
+	}*/
 
 }

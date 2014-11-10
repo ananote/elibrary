@@ -108,10 +108,10 @@ mylib-figcaption {
 					<ul class="nav hidden-xs" id="lg-menu">
 						<!-- <div name="author_list" id="author_list"> </div> -->
 						<h5>
-							<a href="#">My Shelf</a>
+							<a href="javaScript:showMyShelf(<%=user.getUserId()%>)">My Shelf</a>
 						</h5>
 						<h5>
-							<a href="#">Book Requests</a>
+							<a href="javaScript:showBookRequests()">Book Requests</a>
 						</h5>
 						<h5>
 							<a>History</a>
@@ -189,15 +189,14 @@ mylib-figcaption {
 
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h4><%=user.getName()%>
-												- Explore your Books!!!
-											</h4>
+											<h4><%=user.getName()%>	- Explore your Books!!!</h4>
 										</div>
+										<div id="table_container" name="table_container" >&nbsp;</div>
 										<div class="panel-body">
 											<div id="status_panel" name="status_panel"
-												class="mylib-wrapper" />
-												<div id="book_catalogue" name="book_catalogue"
-												class="mylib-wrapper" />
+												class="mylib-wrapper" >&nbsp;</div>
+											<div id="book_catalogue" name="book_catalogue"
+												class="mylib-wrapper" >&nbsp;</div>
 										</div>
 									</div>
 								</div>
@@ -255,7 +254,7 @@ mylib-figcaption {
 								}
 								var divs = document
 										.getElementsByName("book_catalogue");
-								divs[0].innerHTML = "";
+								//divs[0].innerHTML = "";
 								divs[0].innerHTML = htmlCode;
 
 							});
@@ -292,7 +291,7 @@ mylib-figcaption {
 								}
 								var divs = document
 										.getElementsByName("book_catalogue");
-								divs[0].innerHTML = "";
+								//divs[0].innerHTML = "";
 								divs[0].innerHTML = htmlCode;
 							});
 		};
@@ -348,7 +347,7 @@ mylib-figcaption {
 								htmlCode = htmlCode + ' </div>';
 								var divs = document
 										.getElementsByName("book_catalogue");
-								divs[0].innerHTML = "";
+								//divs[0].innerHTML = "";
 								divs[0].innerHTML = htmlCode;
 
 							});
@@ -371,7 +370,7 @@ mylib-figcaption {
 								
 					var divs = document
 							.getElementsByName("status_panel");
-					divs[0].innerHTML = "";
+					//divs[0].innerHTML = "";
 					divs[0].innerHTML = htmlCode;
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -386,12 +385,13 @@ mylib-figcaption {
 				
 					var divs = document
 							.getElementsByName("status_panel");
-					divs[0].innerHTML = "";
+					//divs[0].innerHTML = "";
 					divs[0].innerHTML = htmlCode;
 				}
 			});
 		};
 		
 	</script>
+	<%@ include file="user_book_request.jsp"%>
 </body>
 </html>

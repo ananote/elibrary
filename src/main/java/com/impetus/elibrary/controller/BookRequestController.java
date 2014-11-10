@@ -1,6 +1,7 @@
 package com.impetus.elibrary.controller;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -78,6 +79,29 @@ public class BookRequestController {
 		} catch (Exception ex) {
 			response = new JSONListResponse<BookRequest>("ERROR",
 					ex.getMessage());
+		}
+		return response;
+	}
+	
+	@RequestMapping(value = "/listUserBookRequests", method = RequestMethod.GET)
+	public @ResponseBody List<BookRequest> getUserBookRequests(
+			@RequestParam String userId,
+			@RequestParam String pageType) {
+
+		logger.info("Start getUserBookRequests. userId=" + userId
+				+ ", pageType=" + pageType);
+		List<BookRequest> response = new ArrayList<BookRequest>();
+		try {
+			Field field = null;
+			boolean asc = false;
+			
+			BookRequest br = new BookRequest();
+			br.setUserId(Integer.parseInt(userId));
+			//br.setStatus(pageType);
+			response = bookRequestService.list(br);
+			 
+		} catch (Exception ex) {
+			logger.warning("Error : " + ex.getMessage());
 		}
 		return response;
 	}
@@ -161,16 +185,15 @@ public class BookRequestController {
 		try {
 			BookRequest br = new BookRequest();
 			Book book = bookService.getById(bookId);
-			br.setBook(book);
+			br.setBookId(bookId);
 			br.setBookName(book.getName());
+			br.setBookImageUrl(book.getImageUrl());
 			if (status=="Requested"){
 				Date date = new Date();
 				br.setRequestDate(date);
 			}
 			br.setStatus(status);
-			User user = new User();
-			user.setUserId(userId);
-			br.setUser(user);
+			br.setUserId(userId);
 			// bookRequest.setJoinDate(new Date());
 			int id = bookRequestService.save(br);
 			BookRequest newBookRequest = bookRequestService.getById(id);

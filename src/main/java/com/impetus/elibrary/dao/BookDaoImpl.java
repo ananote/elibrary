@@ -100,8 +100,8 @@ public class BookDaoImpl implements BookDao {
 		Book book = null;
 		try {
 			Session session = sessionFactory.openSession();
-			book = (Book) session.load(Book.class, id);
-			book.setBookRequests(null);
+			book = (Book) session.get(Book.class, id);
+			//book.setBookRequests(null);
 			session.close();
 		} catch (Exception ex) {
 			logger.warning("Error while get book by id " + ex.getMessage());

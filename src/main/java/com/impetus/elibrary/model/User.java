@@ -100,8 +100,8 @@ public class User implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to BookRequest
-	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
-	private Set<BookRequest> bookRequests;
+/*	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	private Set<BookRequest> bookRequests;*/
 
 	//bi-directional many-to-one association to UserSubscription
 	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
@@ -304,7 +304,7 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public Set<BookRequest> getBookRequests() {
+	/*public Set<BookRequest> getBookRequests() {
 		return this.bookRequests;
 	}
 
@@ -314,17 +314,17 @@ public class User implements Serializable {
 
 	public BookRequest addBookRequest(BookRequest bookRequest) {
 		getBookRequests().add(bookRequest);
-		bookRequest.setUser(this);
+		bookRequest.setUserId(this.userId);
 
 		return bookRequest;
 	}
 
 	public BookRequest removeBookRequest(BookRequest bookRequest) {
 		getBookRequests().remove(bookRequest);
-		bookRequest.setUser(null);
+		bookRequest.setUserId(0);
 
 		return bookRequest;
-	}
+	}*/
 
 	public Set<UserSubscription> getUserSubscriptions() {
 		return this.userSubscriptions;

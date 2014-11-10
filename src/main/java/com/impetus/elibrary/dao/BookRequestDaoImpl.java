@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.model.BookRequest;
 
 @Service
@@ -39,7 +38,7 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 		
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<BookRequest> bookRequestList = session.createQuery("from BookRequest").list();
+		List<BookRequest> bookRequestList = session.createQuery("from BookRequest where status not in ('Shelfed','UnShelfed') order by admin_response desc ,update_timestamp asc").list();
 		session.close();
 		return bookRequestList;
 	}
@@ -50,12 +49,12 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 		
 		Session session = sessionFactory.openSession();
 		StringBuffer sbQuery = new StringBuffer();
-		sbQuery.append("from BookRequest");
+		sbQuery.append("from BookRequest where status not in ('Shelfed','UnShelfed') ");
 		if("*".equals(filterColumnValue)
 				|| StringUtils.isEmpty(filterColumnName)
 				|| StringUtils.isEmpty(filterColumnValue)){
 		} else {
-			sbQuery.append(" where ");
+			sbQuery.append(" and ");
 			sbQuery.append(filterColumnName);
 			sbQuery.append(" like '%");
 			sbQuery.append(filterColumnValue.trim());
@@ -63,11 +62,7 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 		}
 		@SuppressWarnings("unchecked")
 		List<BookRequest> bookRequestList = session.createQuery(sbQuery.toString()).list();
-		for(BookRequest br: bookRequestList){
-			System.out.println(br.getBook().getBookId());
-			/*session.load(br.getBook(), br.getBook().getBookId());
-			session.load(br.getUser(), br.getUser().getUserId());*/
-		}
+		
 		session.close();
 		return bookRequestList;
 	}
@@ -76,7 +71,7 @@ public class BookRequestDaoImpl  implements BookRequestDao {
 	public List<BookRequest> list(BookRequest criteria) {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<BookRequest> bookRequestList = session.createQuery("from BookRequest").list();
+		List<BookRequest> bookRequestList = session.createQuery("from BookRequest where status !='UnShelfed'").list();
 		session.close();
 		return bookRequestList;
 	}

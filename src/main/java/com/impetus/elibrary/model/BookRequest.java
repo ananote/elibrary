@@ -57,16 +57,23 @@ public class BookRequest implements Serializable {
 	 
 
 	private String status;
-
+	
+	@Column(name="book_image_url")
+	private String bookImageUrl;
+	
+	@Column(name="book_id")
+	private int bookId;
+	@Column(name="user_id")
+	private int userId;
 	//bi-directional many-to-one association to Book
-	@ManyToOne//(fetch=FetchType.EAGER)
+	/*@ManyToOne
 	@JoinColumn(name="book_id")
-	private Book book;
+	private Book book;*/
 
 	//bi-directional many-to-one association to User
-	@ManyToOne//(fetch=FetchType.EAGER)
+/*	@ManyToOne
 	@JoinColumn(name="user_id")
-	private User user;
+	private User user;*/
 
 	public BookRequest() {
 	}
@@ -150,8 +157,16 @@ public class BookRequest implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getBookImageUrl() {
+		return this.bookImageUrl;
+	}
 
-	public Book getBook() {
+	public void setBookImageUrl(String bookImageUrl) {
+		this.bookImageUrl = bookImageUrl;
+	}
+
+	/*public Book getBook() {
 		return this.book;
 	}
 
@@ -165,8 +180,22 @@ public class BookRequest implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}*/
+	public int getBookId() {
+		return this.bookId;
 	}
-	
+
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}	
 	public short getAdminResponse() {
 		return this.adminResponse;
 	}
