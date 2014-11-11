@@ -38,16 +38,7 @@ public class BookController {
 	private static final Logger logger = Logger.getLogger(BookController.class
 			.getName());
 
-	@RequestMapping("/crud")
-	public ModelAndView getView(@ModelAttribute Book book) {
-		return new ModelAndView("crud_book");
-	}
 
-	@RequestMapping("/register")
-	public ModelAndView registerBook(@ModelAttribute Book book) {
-		bookService.save(book);
-		return new ModelAndView("login");
-	}
 
 	@RequestMapping(value = "/listBooks", method = RequestMethod.POST)
 	public @ResponseBody JSONListResponse<Book> getAllBooksPost(
@@ -65,10 +56,6 @@ public class BookController {
 				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
 			}
 			List<Book> list = bookService.list(jtStartIndex, jtPageSize, filterColumnName, filterColumnValue, field, asc);
-			//for (Book book : list) {
-				//book.setBookRequests(null);
-				//book.setBookSubscriptions(null);
-			//}
 			response = new JSONListResponse<Book>("OK", list, list.size());
 		} catch (Exception ex) {
 			response = new JSONListResponse<Book>("ERROR", ex.getMessage());

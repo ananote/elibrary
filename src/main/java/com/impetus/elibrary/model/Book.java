@@ -177,26 +177,4 @@ public class Book implements Serializable {
 		this.status = status;
 	}
 
-/*	public Set<BookRequest> getBookRequests() {
-		return this.bookRequests;
-	}
-
-	public void setBookRequests(Set<BookRequest> bookRequests) {
-		this.bookRequests = bookRequests;
-	}
-
-	public BookRequest addBookRequest(BookRequest bookRequest) {
-		getBookRequests().add(bookRequest);
-		bookRequest.setBook(this);
-
-		return bookRequest;
-	}
-
-	public BookRequest removeBookRequest(BookRequest bookRequest) {
-		getBookRequests().remove(bookRequest);
-		bookRequest.setBook(null);
-
-		return bookRequest;
-	}*/
-
 }

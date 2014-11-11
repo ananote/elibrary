@@ -3,6 +3,7 @@ package com.impetus.elibrary.dao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.model.User;
 
 @Service
@@ -22,6 +22,8 @@ public class UserDaoImpl  implements UserDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
+	
+	private Logger logger = Logger.getLogger(UserDaoImpl.class.getName());
 
 	@Override
 	@Transactional
@@ -112,33 +114,11 @@ public class UserDaoImpl  implements UserDao {
 			 if (tx != null) {
 				 tx.rollback();
 			 }
-			 e.printStackTrace();
+			 logger.warning("Error: getUserByUsername() - "+e.getMessage());
 		 } finally {
 			 session.close();
 		 }
 		 return user;
 	}
 	
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<User> getListOfUsers() {
-		List<User> list = new ArrayList<User>();
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.getTransaction();
-			tx.begin();
-			list = session.createQuery("from User").list();
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return list;
-	}
-
 }

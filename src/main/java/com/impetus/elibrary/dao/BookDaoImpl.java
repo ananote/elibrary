@@ -23,8 +23,7 @@ public class BookDaoImpl implements BookDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	private static final Logger logger = Logger.getLogger(BookController.class
-			.getName());
+	private Logger logger = Logger.getLogger(BookController.class.getName());
 
 	@Override
 	@Transactional
@@ -101,7 +100,6 @@ public class BookDaoImpl implements BookDao {
 		try {
 			Session session = sessionFactory.openSession();
 			book = (Book) session.get(Book.class, id);
-			//book.setBookRequests(null);
 			session.close();
 		} catch (Exception ex) {
 			logger.warning("Error while get book by id " + ex.getMessage());

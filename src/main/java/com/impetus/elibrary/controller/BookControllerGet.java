@@ -1,13 +1,10 @@
 package com.impetus.elibrary.controller;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +28,7 @@ public class BookControllerGet {
 	@Autowired
 	JSONMapperBean jsonMapperBean;
 	
-	private static final Logger logger = Logger.getLogger(BookControllerGet.class
+	private Logger logger = Logger.getLogger(BookControllerGet.class
 			.getName());
 	
 	
@@ -51,9 +48,6 @@ public class BookControllerGet {
 			criteria.setCategory(category);
 			criteria.setName(name);
 			list = bookService.list(criteria);
-			//for (Book book : list) {
-				//book.setBookRequests(null);
-			//}
 		} catch (Exception ex) {
 			logger.warning(ex.getMessage());
 		}
@@ -75,24 +69,16 @@ public class BookControllerGet {
 				asc = jtSorting.indexOf("ASC")!=0 ? true : false ;
 			}
 			List<Book> list = bookService.list(jtStartIndex, jtPageSize, null, null, field, asc);
-			//for (Book book : list) {
-				//book.setBookRequests(null);
-				//book.setBookSubscriptions(null);
-			//}
 			response = new JSONListResponse<Book>("OK", list, list.size());
 		} catch (Exception ex) {
 			response = new JSONListResponse<Book>("ERROR", ex.getMessage());
 		}
-		//return response;
+		//return response
 		String json="";
 		try {
 			json = jsonMapperBean.writeValueAsString(response.getRecords());
-		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.warning("Error: getAllAuthors() - " + e.getMessage());
 		}
 		logger.info("JSON =" + json);
 		return json;
