@@ -117,8 +117,12 @@ function listByAuthor(author) {
 									+ '<div class="mylib-entry"> <mylib-figure><img src="'
 									+ base_url + '/' + data[i].imageUrl
 									+ '" alt="' + data[i].name + '" />';
+							
 							htmlCode = htmlCode + '<mylib-figcaption>'
-									+ data[i].name + '</mylib-figcaption> ';
+							+ '<li class="active"><a href="javaScript:showBook(\''
+							+ data[i].bookId + '\');"> '
+							+ data[i].name + '</a></li>'
+						+ '</mylib-figcaption> ';
 							htmlCode = htmlCode + '</mylib-figure> </div>';
 						}
 						var divs = document.getElementsByName("book_catalogue");
@@ -152,8 +156,12 @@ function listBySearch(s_name, s_author, s_category) {
 									+ '<div class="mylib-entry"> <mylib-figure><img src="'
 									+ base_url + '/' + data[i].imageUrl
 									+ '" alt="' + data[i].name + '" />';
+							
 							htmlCode = htmlCode + '<mylib-figcaption>'
-									+ data[i].name + '</mylib-figcaption> ';
+							+ '<li class="active"><a href="javaScript:showBook(\''
+							+ data[i].bookId + '\');"> '
+							+ data[i].name + '</a></li>'
+						+ '</mylib-figcaption> ';
 							htmlCode = htmlCode + '</mylib-figure> </div>';
 						}
 						var divs = document.getElementsByName("book_catalogue");

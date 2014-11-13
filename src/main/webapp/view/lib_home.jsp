@@ -109,6 +109,8 @@ mylib-figcaption {
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
 								<!--  <li><a href="#"> Home</a></li>-->
+								<li><a href="${baseURL}/view/lib_home.jsp">Home</a></li>
+								<li><a href="">|</a></li>
 								<li><a href="${baseURL}/view/register_user.jsp">SignUp</a></li>
 								<li><a href="">|</a></li>
 								<li><a href="${baseURL}/view/lib_login.jsp">Login</a></li>
