@@ -92,7 +92,7 @@
 		case 5:
 			//BookRequestTableContainer
 			document.getElementById('filterColumnName').options.length = 0;
-			var UserVar = [ "status","book_name","admin_response" ];
+			var UserVar = [ "status","book_name","admin_response","Issue_Date","Return_Date" ];
 			var sel = document.getElementById('filterColumnName');
 			for ( var i = 0; i < UserVar.length; i++) {
 				var opt = document.createElement('option');

@@ -60,10 +60,10 @@
 			<li><a href="#" onclick="showCrud(6)">Emails</a></li>
 			<li><a href="#" onclick="showCrud(7)">Reports</a>
 				<ul>
-					<li><a href="#">Spring</a></li>
-					<li><a href="#">Spring</a></li>
-					<li><a href="#">Spring</a></li>
-					<li><a href="#">Spring</a></li>
+					<li><a href="#">Books Issued Report</a></li>
+					<li><a href="#">Author Issued Report</a></li>
+					<li><a href="#">Category Issued Report</a></li>
+					<li><a href="#">Daily Deliver Receiver Report</a></li>
 				</ul></li>
 		</ul>
 	</div>
