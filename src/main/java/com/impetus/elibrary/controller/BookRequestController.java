@@ -22,7 +22,6 @@ import com.impetus.elibrary.controller.json.JSONListResponse;
 import com.impetus.elibrary.controller.json.JSONResponse;
 import com.impetus.elibrary.model.Book;
 import com.impetus.elibrary.model.BookRequest;
-import com.impetus.elibrary.model.User;
 import com.impetus.elibrary.service.BookRequestService;
 import com.impetus.elibrary.service.BookService;
 
@@ -35,6 +34,9 @@ public class BookRequestController {
 	
 	@Autowired
 	BookService bookService;
+	
+	@Autowired
+	UserSOAPService userSOAPService;
 
 	private static final Logger logger = Logger
 			.getLogger(BookRequestController.class.getName());
@@ -80,6 +82,7 @@ public class BookRequestController {
 			response = new JSONListResponse<BookRequest>("ERROR",
 					ex.getMessage());
 		}
+		
 		return response;
 	}
 	
@@ -92,8 +95,8 @@ public class BookRequestController {
 				+ ", pageType=" + pageType);
 		List<BookRequest> response = new ArrayList<BookRequest>();
 		try {
-			Field field = null;
-			boolean asc = false;
+			//Field field = null;
+			//boolean asc = false;
 			
 			BookRequest br = new BookRequest();
 			br.setUserId(Integer.parseInt(userId));
@@ -103,6 +106,9 @@ public class BookRequestController {
 		} catch (Exception ex) {
 			logger.warning("Error : " + ex.getMessage());
 		}
+		
+		logger.info("Invoking PDF report...");
+		userSOAPService.bookDeliveryToUsers();
 		return response;
 	}
 
