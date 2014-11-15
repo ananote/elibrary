@@ -1,9 +1,11 @@
 package com.impetus.elibrary.controller;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -13,14 +15,12 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.impetus.elibrary.service.BookRequestService;
 import com.impetus.elibrary.service.UserService;
 
-//@WebService(serviceName = "PdfReportService")
-@Service
+@WebService(serviceName = "PdfReportService")
 public class UserSOAPService {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class UserSOAPService {
 
 	private Logger logger = Logger.getLogger(UserSOAPService.class.getName());
 
-	// @WebMethod
+	@WebMethod
 	public @ResponseBody byte[] bookDeliveryToUsers() {
 
 		Session session = sessionFactory.openSession();

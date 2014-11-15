@@ -35,9 +35,6 @@ public class BookRequestController {
 	@Autowired
 	BookService bookService;
 	
-	@Autowired
-	UserSOAPService userSOAPService;
-
 	private static final Logger logger = Logger
 			.getLogger(BookRequestController.class.getName());
 
@@ -107,8 +104,6 @@ public class BookRequestController {
 			logger.warning("Error : " + ex.getMessage());
 		}
 		
-		logger.info("Invoking PDF report...");
-		userSOAPService.bookDeliveryToUsers();
 		return response;
 	}
 
