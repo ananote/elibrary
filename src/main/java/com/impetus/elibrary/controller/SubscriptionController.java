@@ -1,6 +1,7 @@
 package com.impetus.elibrary.controller;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -68,6 +69,18 @@ public class SubscriptionController {
 		return response;
 	}
 
+	@RequestMapping(value = "/listSubscriptions", method = RequestMethod.GET)
+	public @ResponseBody List<Subscription> getAllSubscriptions(){
+		logger.info("Start getAllSubscriptions. " );
+		List<Subscription> list = new ArrayList<Subscription>();
+		try {
+			list = subscriptionService.list(new Subscription());
+		} catch (Exception ex) {
+			logger.info("Get getAllSubscriptions "+ex.getMessage());
+		}
+		return list;
+	}
+	
 	@RequestMapping(value = "/getSubscription", method = RequestMethod.GET)
 	public @ResponseBody Subscription getSubscription(@PathVariable("id") int subscriptionId) {
 

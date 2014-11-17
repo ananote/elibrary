@@ -114,6 +114,9 @@ mylib-figcaption {
 							<a href="javaScript:showBookRequests()">Book Requests</a>
 						</h5>
 						<h5>
+							<a href="javaScript:showSubscriptions()">Subscribe</a>
+						</h5>
+						<h5>
 							<a>History</a>
 						</h5>
 						<h6>
@@ -393,5 +396,6 @@ mylib-figcaption {
 		
 	</script>
 	<%@ include file="user_book_request.jsp"%>
+	<%@ include file="user_subscription.jsp"%>
 </body>
 </html>
