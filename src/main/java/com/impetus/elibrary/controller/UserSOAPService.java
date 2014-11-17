@@ -53,7 +53,7 @@ public class UserSOAPService {
 			@SuppressWarnings("unchecked")
 			List<Object[]> bookDeliveryList = session
 					.createQuery(
-							"select a.name as name, a.address1 as address, a.mobile as mobile, b.status as status"
+							"select a.name as name, concat(concat(concat(concat(a.address1,' '),a.address2),', '), a.city) as address, a.mobile as mobile, b.status as status"
 							+ " from User a, BookRequest b where a.userId=b.userId "
 							+ " and b.status in ('Ready','Request_Return') ")
 					.list();
@@ -74,7 +74,7 @@ public class UserSOAPService {
 			stream.beginText();
 			stream.setFont(font, 12);
 			stream.moveTextPositionByAmount(100, 700);
-			stream.drawString("Customer Report");
+			stream.drawString("Book Delivery Report");
 			stream.endText();
 			drawTable(page, stream, 690, 100, content);
 
