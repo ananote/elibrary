@@ -1,4 +1,3 @@
-
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   
            http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
@@ -20,10 +19,23 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
+	
+	<servlet>
+		<servlet-name>SOAPServlet</servlet-name>
+		<servlet-class>
+			com.sun.xml.ws.transport.http.servlet.WSServlet
+        </servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/ws/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SOAPServlet</servlet-name>
+		<url-pattern>/soap</url-pattern>
 	</servlet-mapping>
 
 	<listener>
@@ -32,7 +44,12 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	<listener>
+		<listener-class>
+			com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+        </listener-class>
+	</listener>
+	
 	<mime-mapping>
 		<extension>json</extension>
 		<mime-type>application/json</mime-type>

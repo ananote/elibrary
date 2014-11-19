@@ -1,10 +1,11 @@
-package com.impetus.elibrary.controller;
+package com.impetus.elibrary.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -16,12 +17,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.impetus.elibrary.service.BookRequestService;
-import com.impetus.elibrary.service.UserService;
-
-@WebService(serviceName = "PdfReportService")
-public class UserSOAPService {
+@WebService(endpointInterface = "com.impetus.elibrary.service.UserSOAPService")
+public class UserSOAPServiceImpl  extends SpringBeanAutowiringSupport implements UserSOAPService {
 
 	@Autowired
 	UserService userService;
@@ -32,18 +31,21 @@ public class UserSOAPService {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	private Logger logger = Logger.getLogger(UserSOAPService.class.getName());
+	private Logger logger = Logger.getLogger(UserSOAPServiceImpl.class.getName());
 
-	@WebMethod
+	@Override
 	public @ResponseBody byte[] bookDeliveryToUsers() {
 
 		Session session = sessionFactory.openSession();
 
 		PDDocument doc = null;
 		PDPage page = null;
-		String[][] content = { { "Name", "Address", "Mobile", "Status" } };
-
-		try {
+		byte[] bFile = new byte[0];
+		String[][] content = { { "Name","Book","Address", "Mobile", "Status" } };
+		String fileName="BookDeliverRequest"+System.currentTimeMillis()+".pdf";
+		FileInputStream fileInputStream=null;
+		 
+        try {
 			logger.info("Start - generate PDF");
 			doc = new PDDocument();
 			page = new PDPage();
@@ -53,7 +55,7 @@ public class UserSOAPService {
 			@SuppressWarnings("unchecked")
 			List<Object[]> bookDeliveryList = session
 					.createQuery(
-							"select a.name as name, concat(concat(concat(concat(a.address1,' '),a.address2),', '), a.city) as address, a.mobile as mobile, b.status as status"
+							"select a.name as name,b.bookName as book, a.address1 as address, a.mobile as mobile, b.status as status"
 							+ " from User a, BookRequest b where a.userId=b.userId "
 							+ " and b.status in ('Ready','Request_Return') ")
 					.list();
@@ -61,11 +63,12 @@ public class UserSOAPService {
 			for (Object[] attr : bookDeliveryList) {
 				
 				String name = String.valueOf(attr[0]);
-				String address = String.valueOf(attr[1]);
-				String mobile = String.valueOf(attr[2]);
-				String status = String.valueOf(attr[3]);
+				String book = String.valueOf(attr[1]);
+				String address = String.valueOf(attr[2]);
+				String mobile = String.valueOf(attr[3]);
+				String status = String.valueOf(attr[4]);
 				
-				String[][] data = { { name, address, mobile, status } };
+				String[][] data = { { name,book, address, mobile, status } };
 
 				content = append(content, data);
 			}
@@ -74,25 +77,36 @@ public class UserSOAPService {
 			stream.beginText();
 			stream.setFont(font, 12);
 			stream.moveTextPositionByAmount(100, 700);
-			stream.drawString("Book Delivery Report");
+			stream.drawString("Customer Report");
 			stream.endText();
 			drawTable(page, stream, 690, 100, content);
 
 			stream.close();
-			doc.save("BookDeliverRequest.pdf");
-			doc.close();
+			doc.save(fileName);
+			
+			
+			File file = new File(fileName);
+			bFile = new byte[(int) file.length()];
+			fileInputStream = new FileInputStream(file);
+		    fileInputStream.read(bFile);
+		    fileInputStream.close();
+	 
+		    
+		    logger.info("File to Byte Array : Done.");
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warning("PdfReport Generation : " + e.getMessage());
 		} finally {
 			if (session != null) {
 				try {
+					doc.close();
 					session.close();
 				} catch (Exception e) {
 				}
 			}
 		}
 
-		return null;
+		return bFile;
 	}
 
 	static class BookDeliveryAttributes {
