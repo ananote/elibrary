@@ -1,5 +1,7 @@
 package com.impetus.elibrary.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,9 +40,12 @@ public class UserSOAPServiceImpl  extends SpringBeanAutowiringSupport implements
 
 		PDDocument doc = null;
 		PDPage page = null;
-		String[][] content = { { "Name", "Address", "Mobile", "Status" } };
-
-		try {
+		byte[] bFile = new byte[0];
+		String[][] content = { { "Name","Book","Address", "Mobile", "Status" } };
+		String fileName="BookDeliverRequest"+System.currentTimeMillis()+".pdf";
+		FileInputStream fileInputStream=null;
+		 
+        try {
 			logger.info("Start - generate PDF");
 			doc = new PDDocument();
 			page = new PDPage();
@@ -50,7 +55,7 @@ public class UserSOAPServiceImpl  extends SpringBeanAutowiringSupport implements
 			@SuppressWarnings("unchecked")
 			List<Object[]> bookDeliveryList = session
 					.createQuery(
-							"select a.name as name, a.address1 as address, a.mobile as mobile, b.status as status"
+							"select a.name as name,b.bookName as book, a.address1 as address, a.mobile as mobile, b.status as status"
 							+ " from User a, BookRequest b where a.userId=b.userId "
 							+ " and b.status in ('Ready','Request_Return') ")
 					.list();
@@ -58,11 +63,12 @@ public class UserSOAPServiceImpl  extends SpringBeanAutowiringSupport implements
 			for (Object[] attr : bookDeliveryList) {
 				
 				String name = String.valueOf(attr[0]);
-				String address = String.valueOf(attr[1]);
-				String mobile = String.valueOf(attr[2]);
-				String status = String.valueOf(attr[3]);
+				String book = String.valueOf(attr[1]);
+				String address = String.valueOf(attr[2]);
+				String mobile = String.valueOf(attr[3]);
+				String status = String.valueOf(attr[4]);
 				
-				String[][] data = { { name, address, mobile, status } };
+				String[][] data = { { name,book, address, mobile, status } };
 
 				content = append(content, data);
 			}
@@ -76,20 +82,31 @@ public class UserSOAPServiceImpl  extends SpringBeanAutowiringSupport implements
 			drawTable(page, stream, 690, 100, content);
 
 			stream.close();
-			doc.save("BookDeliverRequest.pdf");
-			doc.close();
+			doc.save(fileName);
+			
+			
+			File file = new File(fileName);
+			bFile = new byte[(int) file.length()];
+			fileInputStream = new FileInputStream(file);
+		    fileInputStream.read(bFile);
+		    fileInputStream.close();
+	 
+		    
+		    logger.info("File to Byte Array : Done.");
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warning("PdfReport Generation : " + e.getMessage());
 		} finally {
 			if (session != null) {
 				try {
+					doc.close();
 					session.close();
 				} catch (Exception e) {
 				}
 			}
 		}
 
-		return null;
+		return bFile;
 	}
 
 	static class BookDeliveryAttributes {
