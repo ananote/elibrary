@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -45,8 +46,12 @@ public class UserSubscriptionDaoImpl  implements UserSubscriptionDao {
 	@Override
 	public List<UserSubscription> list(UserSubscription criteria) {
 		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from UserSubscription");
+		if(criteria.getUser() != null){
+		    //query.setParameter("user_id", criteria.getUser().getUserId());
+		}
 		@SuppressWarnings("unchecked")
-		List<UserSubscription> userSubscriptionList = session.createQuery("from UserSubscription").list();
+		List<UserSubscription> userSubscriptionList = query.list();
 		session.close();
 		return userSubscriptionList;
 	}
