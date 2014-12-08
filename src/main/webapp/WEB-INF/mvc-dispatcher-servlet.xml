@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util" 
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
 	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd  
       http://www.springframework.org/schema/beans 
@@ -23,8 +21,10 @@
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
-			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+			<bean
+				class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+			<bean
+				class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 				<property name="objectMapper" ref="jacksonObjectMapper" />
 			</bean>
 		</mvc:message-converters>
@@ -82,5 +82,13 @@
 	<bean id="jacksonObjectMapper" class="com.impetus.elibrary.controller.json.JSONMapperBean" />
 
 	<!-- Aspect -->
-	<bean id="loginAspect" class="com.impetus.elibrary.aspect.LoginAspect" />
+	<!--bean id="loginAspect" class="com.impetus.elibrary.aspect.LoginAspect" /-->
+
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.impetus.elibrary.interceptor.MyInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
